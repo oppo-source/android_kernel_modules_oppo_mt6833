@@ -1,0 +1,110 @@
+// SPDX-License-Identifier: GPL-2.0
+/* Copyright (c) 2020 MediaTek Inc. */
+#include <dt-bindings/pinctrl/mt6373-pinfunc.h>
+
+&mt6681_accdet {
+	headset-three-key-threshold = <0 82 170 306>;
+	accdet-mic-vol = <7>;
+	// add for supporting type-c headphone detect bypass
+};
+
+&mt6681_pmic {
+	mediatek,i2c-driving = <11 11>;
+};
+
+&i2c6 {
+	clock-frequency = <400000>;
+
+	was4783: was4783@42 {
+		compatible = "oplus,typec-switch-i2c";
+		reg = <0x42>;
+		// add for supporting type-c headphone detect bypass
+		oplus,hp-bypass = <1>;
+		status = "okay";
+	};
+
+	sipa_i2c_L: sipa_i2c@6c{
+		compatible = "si,sia91xx-i2c";
+		#sound-dai-cells = <0>;
+		reg = <0x6c>;
+		si,sipa-dev = <&si_pa_L>;
+		status = "okay";
+	};
+
+	sipa_i2c_R: sipa_i2c@6d{
+		compatible = "si,sia91xx-i2c";
+		#sound-dai-cells = <0>;
+		reg = <0x6d>;
+		si,sipa-dev = <&si_pa_R>;
+		status = "okay";
+	};
+
+};
+
+&audio_extend {
+ 	//for nxp speaker
+ 	oplus,speaker-vendor = "sipa";
+ 	oplus,speaker-i2s-id = <9>;
+ 	oplus,speaker-i2s-id-in = <8>;
+	oplus,speaker-codec-name = "sipa_i2c.6-006c","sipa_i2c.6-006d";
+	oplus,speaker-codec-dai-name = "sia91xx-aif-6-6c","sia91xx-aif-6-6d";
+	oplus,spk-i2s-index = <25 24>;
+};
+
+&mt6373_pio {
+	sia91xx_gpio_L: sia91xx_gpio_L {
+		pins_cmd_dat {
+			pinmux = <PINMUX_MT6373_GPIO1__FUNC_GPIO1>;
+			output-high;
+		};
+	};
+
+	sia91xx_gpio_R: sia91xx_gpio_R {
+		pins_cmd_dat {
+			pinmux = <PINMUX_MT6373_GPIO2__FUNC_GPIO2>;
+			output-high;
+		};
+	};
+};
+
+&si_pa_L {
+	compatible = "si,sia91xx";
+	si,si_pa_type = "sia917x";
+	si,si_pa_reset = <&mt6373_pio 1 0>;
+	pinctrl-names = "si_pa_gpio";
+	pinctrl-0 = <&sia91xx_gpio_L>;
+	si,si_pa_disable_pin = <0>;
+	sipa_min_range = <5300>;
+	sipa_max_range = <7500>;
+	sipa_f0_min_range = <200>;
+	sipa_f0_max_range = <2000>;
+	// 2: 2 spk, 0: mean no spk need f0 cali
+	oplus_need_f0_cali = <2>;
+	channel_num = <0>;
+};
+
+&si_pa_R {
+	compatible = "si,sia91xx";
+	si,si_pa_type = "sia917x";
+	si,si_pa_reset = <&mt6373_pio 2 0>;
+	pinctrl-names = "si_pa_gpio";
+	pinctrl-0 = <&sia91xx_gpio_R>;
+	si,si_pa_disable_pin = <0>;
+	sipa_min_range = <5300>;
+	sipa_max_range = <7500>;
+	sipa_f0_min_range = <200>;
+	sipa_f0_max_range = <2000>;
+	// 2: 2 spk, 0: mean no spk need f0 cali
+	oplus_need_f0_cali = <2>;
+	channel_num = <1>;
+};
+
+&sound {
+	si,sia81xx-max-num = <2>;
+	si,sia81xx-aux-devs = <&sipa_i2c_L>, <&sipa_i2c_R>;
+	si,sia81xx-aux-devs-prefix = "SpkrLeft", "SpkrRight";
+	mediatek,speaker-codec {
+		sound-dai = <&sipa_i2c_L>, <&sipa_i2c_R>;
+	};
+
+};

@@ -1,0 +1,45 @@
+﻿// SPDX-License-Identifier: (GPL-2.0 OR MIT)
+/*
+ * Copyright (C) 2022 MediaTek Inc.
+ */
+#include "k6899v1_64.dts"
+
+/* #ifdef OPLUS_FEATURE_CHG_BASIC */
+#include "mediatek/oplus_misc_24613.dtsi"
+/* #endif */
+
+/* #ifdef OPLUS_FEATURE_SENSOR */
+#include "mediatek/oplus_sensor_24613.dtsi"
+/* #endif */
+
+&odm {
+	/*OPLUS_FEATURE_OEM_OCDT oppo project start */
+	oplus_project:oplus_project {
+		compatible = "oplus,oplus_project";
+    };
+
+    oplus_boardid:oplus_boardid {
+        compatible = "oplus,oplus_boardid-v2";
+        support-dtsino=<24613>;//only one u32
+        /*first one is low 32bit, last one is highest 32bit, must be 32-bit for 4gpios*/
+        support-pcbmask=<0xffffffff 0xffffffff 0xffffffff>;
+    };
+};
+
+&pio {
+	//#ifdef OPLUS_VENDOR_SWTP
+	swtp: swtp {
+		compatible = "mediatek, swtp-eint";
+	};
+	 swtp_1: swtp_1 {
+        compatible = "mediatek, swtp1-eint";
+    };
+	//#endif  /*OPLUS_VENDOR_SWTP*/
+};
+#include "mediatek/oplus6899_common.dtsi"
+#include <oplus6899_24613/cust.dtsi>
+#include "oplus_tp_24613.dtsi"
+/* Add for brz(24613) fingerprint device-tree */
+/* #ifdef CONFIG_UFF_FINGERPRINT */
+#include "oplus_uff_24613.dtsi"
+/*End of this file, DO NOT ADD ANYTHING HERE*/

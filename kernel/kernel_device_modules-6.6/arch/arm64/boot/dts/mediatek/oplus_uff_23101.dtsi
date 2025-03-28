@@ -1,0 +1,104 @@
+// SPDX-License-Identifier: GPL-2.0-only
+/*
+* Copyright (C) 2021-2025 Oplus. All rights reserved.
+*/
+#include <dt-bindings/iio/mt635x-auxadc.h>
+#include <dt-bindings/pinctrl/mt6373-pinfunc.h>
+#include <dt-bindings/pinctrl/mt65xx.h>
+
+/* UFF dts config at 2023.5.19
+ *
+ * fp vendor:
+ *   jiiov: JV0301
+ */
+
+/* FINGERPRINT start */
+&spi3 {
+#address-cells = <1>;
+#size-cells = <0>;
+status = "okay";
+mediatek,pad-select = <1>;
+oplus_fp: fingerprint@0 {
+		compatible = "oplus,fp_spi";
+		spi-mode = <0>;
+		reg = <0>;
+		spi-max-frequency = <26000000>;
+		spi-id = <3>;
+		spi-irq = <114>;
+		// spi-reg = <11013000>;
+		uff,gpio_irq = <&pio 114 0x00>;
+		uff,gpio_reset = <&pio 115 0x00>;
+		uff,gpio_cs = <&pio 107 0x00>;
+		pinctrl-names = "default", "fp_spi_driver", "fp_cs_func";
+		pinctrl-0 = <&gpio_uff_irq_default>, <&gpio_uff_reset_default>, <&gpio_uff_cs_default>;
+		pinctrl-1 = <&gpio_uff_clk_6mA>, <&gpio_uff_mosi_6mA>, <&gpio_uff_miso_6mA>, <&gpio_uff_cs_6mA>;
+		pinctrl-2 = <&gpio_uff_cs_func>;
+		dvdd-supply = <&mt6373_vfp>;
+		dvdd-config = <3000000 3000000 120000>;
+		optical_irq_disable_flag = <1>;
+		power-num = <1>;
+		status = "okay";
+		power_source_1 {
+			power-mode = <1>;
+			power-name = "dvdd";
+			power-config = "dvdd-config";
+			delay-time = <0>;
+		};
+	};
+};
+
+&pio{
+gpio_uff_irq_default: gpio_uff_irq_default {
+				pins_cmd_dat {
+					pinmux = <PINMUX_GPIO114__FUNC_GPIO114>;
+					slew-rate = <0>;
+					bias-pull-down;
+				};
+			};
+gpio_uff_reset_default: gpio_uff_reset_default {
+				pins_cmd_dat {
+					pinmux = <PINMUX_GPIO115__FUNC_GPIO115>;
+					slew-rate = <1>;
+					output-low;
+				};
+			};
+gpio_uff_clk_6mA: gpio_uff_clk_6mA {
+				pins_cmd_dat {
+					pinmux = <PINMUX_GPIO106__FUNC_SPI3_B_CLK>;
+					drive-strength = <2>;
+				};
+			};
+gpio_uff_cs_default: gpio_uff_cs_default {
+				pins_cmd_dat {
+					pinmux = <PINMUX_GPIO107__FUNC_GPIO107>;
+					slew-rate = <1>;
+					bias-disable;
+					output-low;
+				};
+			};
+gpio_uff_cs_6mA: gpio_uff_cs_6mA {
+				pins_cmd_dat {
+					pinmux = <PINMUX_GPIO107__FUNC_SPI3_B_CSB>;
+					drive-strength = <2>;
+				};
+			};
+gpio_uff_cs_func: gpio_uff_cs_func {
+					pins_cmd_dat {
+					pinmux = <PINMUX_GPIO107__FUNC_SPI3_B_CSB>;
+					drive-strength = <2>;
+				};
+			};
+gpio_uff_mosi_6mA: gpio_uff_mosi_6mA {
+				pins_cmd_dat {
+					pinmux = <PINMUX_GPIO108__FUNC_SPI3_B_MO>;
+					drive-strength = <2>;
+				};
+			};
+gpio_uff_miso_6mA: gpio_uff_miso_6mA {
+				pins_cmd_dat {
+					pinmux = <PINMUX_GPIO109__FUNC_SPI3_B_MI>;
+					drive-strength = <2>;
+				};
+			};
+};
+/* FINGERPRINT end */

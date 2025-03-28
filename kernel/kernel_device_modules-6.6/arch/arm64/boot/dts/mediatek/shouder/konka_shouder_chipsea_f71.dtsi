@@ -1,0 +1,111 @@
+&i2c12 {
+	status = "okay";
+	clock-frequency = <400000>;
+	csa37f71@50 {
+		status = "okay";
+		compatible = "chipsea,csa37f71";
+		reg = <0x50>;
+		/* Interrupt && Irq-gpio */
+		interrupt-parent = <&pio>;
+		interrupts = <40 0x2008>;
+
+		/* Power Config */
+		vdd_2v8-supply = <&mt6373_vio28>;
+
+		/* Other HW Resource */
+		irq-gpio = <&pio 40 0x2008>;
+		reset-gpio = <&pio 130 0>;
+		/*wake-gpio = <&pio 98 0>;*/
+
+		realtime-mode-0 = <120 110 200 190 10 10 20 10 50 100 500 300>;
+		delay-mode-0 = <120 110 200 190 10 10 20 10 50 100 500 300>;
+	};
+};
+/*
+&tlmm {
+	shoulder_state_key_active:shoulder_state_key_active{
+		mux {
+			pins = "gpio174", "gpio176";
+			function = "gpio";
+		};
+
+		config {
+			pins = "gpio174", "gpio176";
+			drive-strength = <6>;
+			bias-pull-up = <00>;
+		};
+	};
+};
+
+&soc {
+	gpio_keys {
+		compatible = "gpio-keys";
+		label = "gpio-keys";
+
+		pinctrl-names = "default";
+		pinctrl-0 = <&shoulder_state_key_active>;
+		shoulder_up {
+			label = "shoulder_up";
+			gpios = <&tlmm 174 GPIO_ACTIVE_LOW>;
+			linux,input-type = <1>;
+			linux,code = <752>;
+			gpio-key,wakeup;
+			debounce-interval = <5>;
+			linux,can-disable;
+		};
+		shoulder_down {
+			label = "shoulder_down";
+			gpios = <&tlmm 176 GPIO_ACTIVE_LOW>;
+			linux,input-type = <1>;
+			linux,code = <753>;
+			gpio-key,wakeup;
+			debounce-interval = <5>;
+			linux,can-disable;
+		};
+	};
+};
+*/
+
+
+&mmc1_pins_default {
+    pins-cmd-dat {
+        pinmux = <PINMUX_GPIO127__FUNC_MSDC1_DAT0>,
+            <PINMUX_GPIO128__FUNC_MSDC1_DAT1>,
+            <PINMUX_GPIO129__FUNC_MSDC1_DAT2>,
+            <PINMUX_GPIO126__FUNC_MSDC1_CMD>;
+        input-enable;
+        drive-strength = <3>;
+        bias-pull-up = <MTK_PUPD_SET_R1R0_01>;
+    };
+
+    pins-clk {
+        pinmux = <PINMUX_GPIO125__FUNC_MSDC1_CLK>;
+        drive-strength = <3>;
+        bias-pull-down = <MTK_PUPD_SET_R1R0_10>;
+    };
+};
+
+&mmc1_pins_uhs {
+    pins-cmd-dat {
+        pinmux = <PINMUX_GPIO127__FUNC_MSDC1_DAT0>,
+            <PINMUX_GPIO128__FUNC_MSDC1_DAT1>,
+            <PINMUX_GPIO129__FUNC_MSDC1_DAT2>,
+            <PINMUX_GPIO126__FUNC_MSDC1_CMD>;
+        input-enable;
+        drive-strength = <3>;
+        bias-pull-up = <MTK_PUPD_SET_R1R0_01>;
+    };
+
+    pins-clk {
+        pinmux = <PINMUX_GPIO125__FUNC_MSDC1_CLK>;
+        drive-strength = <3>;
+        bias-pull-down = <MTK_PUPD_SET_R1R0_10>;
+    };
+};
+
+
+&i2c6 {
+	rt9759-slave@66 {
+		/delete-property/ rt9759,intr-gpios;
+    };
+};

@@ -1,0 +1,51 @@
+// SPDX-License-Identifier: (GPL-2.0 OR MIT)
+&connfem {
+    sku {
+        hw-names = "qm42655_qm45655_2g2a"; /* QM42655/QM45655, 2G+2A */
+
+        /***************************************************************
+         * [HW][0] QM42655/QM45655, 2G+2A, BT AntSwap, WF0 Antswap
+         **************************************************************/
+        hw-0 {
+            using-fems =
+                <&qm42655>,
+                <&qm45655>;
+
+            layout-flag = <0x00000000>;
+            layout =
+                    <&g_wf0_bt0_qm42655>,
+                    <&g_wf1_bt1_qm42655>,
+                    <&a_wf0_qm45655>,
+                    <&a_wf1_qm45655>;
+
+
+            layout-spdt =
+                        <&spdt_g_bt1_antswap>,
+                        <&spdt_a_wf0_antswap>;
+
+
+            common {
+                flags {
+                    fe-ant-cnt = [86];
+                    fe-conn-dpdt-sp3t = [80];
+                    fe-conn-spdt = [90];
+                    fe-bt-wf-usage = [80];
+                    fe-conn-spdt-2 = [90];
+                };
+            };
+
+            wifi {
+                using-states =
+                    <&qm42655_rxl>,
+                    <&qm45655_rxl>;
+            };
+
+            bt {
+                flags {
+                    efem-mode = [03]; /* 3:epa_elna, 2:epa, 1:elna, 0:bypass */
+                    rx-mode = [24]; /* 0x24: G-band RxL*/
+                };
+            };
+        };
+    };
+};

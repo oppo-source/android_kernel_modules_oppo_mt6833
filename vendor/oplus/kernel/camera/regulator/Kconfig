@@ -1,0 +1,18 @@
+
+config PMIC_WL2868C
+	tristate "Fairchild WL2868C PMIC"
+	depends on I2C && (OF || COMPILE_TEST)
+	select REGMAP_I2C
+	help
+	  This driver supports Fairchild (ON Semiconductor) WL2868C
+	  regulator. The regulator is a programmable power management IC
+	  (PMIC), it is controlled by I2C and provides LDO outputs
+
+config PMIC_AW37004DNR
+        tristate "awinic aw37004dnr PMIC"
+        depends on I2C && (OF || COMPILE_TEST)
+        select REGMAP_I2C
+        help
+          This driver supports awinic (shanghai awinic) aw37004dnr
+          regulator. The regulator is a programmable power management IC
+          (PMIC), it is controlled by I2C and provides LDO outputs.

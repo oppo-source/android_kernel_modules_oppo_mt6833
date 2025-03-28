@@ -1,0 +1,79 @@
+#include "mt6991-dsi-display-conf.h"
+#include "panel-ac247-p-7-a0014-dsi-cmd-ext-params.dtsi"
+
+&dsi0 {
+	panel_ac247_p_7_a0014_dsi_cmd: oplus,panel_ac247_p_7_a0014_dsi_cmd {};
+};
+
+#include "panel-ac247-p-7-a0014-dsi-cmd.dtsi"
+
+&mtk_leds {
+	status = "okay";
+
+	backlight {
+		label = "lcd-backlight";
+		led_mode = <4>;
+		min-brightness = <1>;
+		max-brightness = <4094>;
+		min-hw-brightness = <1>;
+		max-hw-brightness = <4094>;
+		oplus-brightness-default-percent = <70>;
+		oplus-brightness-normal-max = <3515>;
+		led-bits = <13>;
+		trans-bits = <13>;
+		default-state = "on";
+	};
+};
+
+&dsi0 {
+	status = "okay";
+	#address-cells = <1>;
+	#size-cells = <0>;
+	/* choose second panel which support spr */
+	/* choose MTK SPR IP */
+	panel4@3 {
+		compatible = "oplus_display_dsi_primary";
+		reg = <1>;
+		vddio-supply = <&mt6373_vcn18io>;
+		vci-supply = <&mt6373_vmc>;
+		pinctrl-names = "default";
+		port {
+			oplus_panel_in4: endpoint {
+				remote-endpoint = <&oplus_dsi_out4>;
+			};
+		};
+	};
+
+	ports {
+		port {
+			oplus_dsi_out4: endpoint@3 {
+				remote-endpoint = <&oplus_panel_in4>;
+			};
+		};
+	};
+};
+
+&dsi0 {
+	dsi_panel_pwr_supply: oplus,dsi_panel_pwr_supply {
+		oplus,panel-supply-entry@0 {
+			reg = <0>;
+			oplus,supply-name = "vddio";
+			oplus,supply-type = <OPLUS_SUPPLY_TYPE_LDO>;
+			oplus,supply-min-voltage = <1800000>;
+			oplus,supply-max-voltage = <1800000>;
+		};
+		oplus,panel-supply-entry@1 {
+			reg = <1>;
+			oplus,supply-name = "vddr";
+			oplus,supply-type = <OPLUS_SUPPLY_TYPE_GPIO>;
+			oplus,supply-gpios = <&pio 175 0>;
+		};
+		oplus,panel-supply-entry@2 {
+			reg = <2>;
+			oplus,supply-name = "vci";
+			oplus,supply-type = <OPLUS_SUPPLY_TYPE_LDO>;
+			oplus,supply-min-voltage = <3000000>;
+			oplus,supply-max-voltage = <3000000>;
+		};
+	};
+};

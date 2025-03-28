@@ -1,0 +1,15 @@
+# SPDX-License-Identifier: GPL-2.0-only
+#source "drivers/power/reset/Kconfig"
+#source "drivers/power/supply/Kconfig"
+#ifdef OPLUS_FEATURE_CHG_BASIC
+
+config OPLUS_PD_EXT_SUPPORT
+	bool "TypeC Port Controller Extern"
+	default n
+	help
+	  Say Y to enable
+
+source "$(KCONFIG_EXT_PREFIX)drivers/power/oplus/Kconfig"
+
+source "$(KCONFIG_EXT_PREFIX)drivers/power/oplus/pd_ext/Kconfig"
+#endif

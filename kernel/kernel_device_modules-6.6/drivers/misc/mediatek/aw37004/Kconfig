@@ -1,0 +1,7 @@
+config LDO_AW37004
+	tristate "CAMERA_LDO_AW37004 for MT6877"
+	help
+	  This is a driver for the MediaTek
+	  image sensors.
+	  To compile this driver as a module, choose M here: the
+	  module will be called CAMERA_LDO_AW37004.

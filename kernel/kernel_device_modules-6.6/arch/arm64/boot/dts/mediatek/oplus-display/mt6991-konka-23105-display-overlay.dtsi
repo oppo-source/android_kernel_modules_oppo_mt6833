@@ -1,0 +1,129 @@
+#include "mt6991-dsi-display-conf.h"
+#include "panel-ac180-p-3-a0020-dsi-cmd-ext-params.dtsi"
+
+&dsi0 {
+	panel_ac180_p_3_a0020_dsi_cmd: oplus,panel_ac180_p_3_a0020_dsi_cmd {};
+};
+
+#include "panel-ac180-p-3-a0020-dsi-cmd.dtsi"
+#include "panel-ac180-p-3-a0020-dsi-cmd-T0.dtsi"
+
+&mtk_leds {
+	status = "okay";
+
+	backlight {
+		label = "lcd-backlight";
+		led_mode = <4>;
+		min-brightness = <1>;
+		max-brightness = <4094>;
+		min-hw-brightness = <1>;
+		max-hw-brightness = <4094>;
+		oplus-brightness-default-percent = <35>;
+		oplus-brightness-normal-max = <3515>;
+		led-bits = <13>;
+		trans-bits = <13>;
+		default-state = "on";
+	};
+};
+
+&dsi0 {
+	status = "okay";
+	#address-cells = <1>;
+	#size-cells = <0>;
+	/* choose second panel which support spr */
+	switch-spr = <1>;
+	/* choose MTK SPR IP */
+	spr-ip-type = <0>;
+	panel1@0 {
+		compatible = "panel_ac178_p_3_a0004_dsi_cmd";
+		reg = <0>;
+		reset-gpios = <&pio 90 0>;
+		1p2-gpios = <&pio 175 0>;
+		1p8-supply = <&mt6373_vcn18io>;
+		3p0-supply = <&mt6373_vmc>;
+		oplus,dsi-serial-number-enabled=<1>;
+		oplus,dsi-serial-number-switch-page;
+		oplus,dsi-serial-number-index= <0>;
+		oplus,dsi-serial-number-switch-page-command= <0xFF 0x08 0x38 0x1D>;
+		oplus,dsi-serial-number-default-switch-page-command= <0xFF 0x08 0x38 0x00>;
+		oplus,dsi-serial-number-reg= <0x82>;
+		oplus,dsi-serial-number-read-count= <7>;
+		pinctrl-names = "default";
+/* #ifdef OPLUS_FEATURE_DISPLAY_ONSCREENFINGERPRINT */
+		/* ofp config */
+		oplus,ofp-fp-type = <0x10>;
+/* #endif *//* OPLUS_FEATURE_DISPLAY_ONSCREENFINGERPRINT */
+		port {
+			oplus_panel_in1: endpoint {
+				remote-endpoint = <&oplus_dsi_out1>;
+			};
+		};
+	};
+	panel2@1 {
+		compatible = "oplus_display_dsi_primary";
+		reg = <1>;
+		vddio-supply = <&mt6373_vcn18io>;
+		vci-supply = <&mt6373_vmc>;
+		pinctrl-names = "default";
+		port {
+			oplus_panel_in2: endpoint {
+				remote-endpoint = <&oplus_dsi_out2>;
+			};
+		};
+	};
+	ports {
+		port {
+			oplus_dsi_out1: endpoint@0 {
+				remote-endpoint = <&oplus_panel_in1>;
+			};
+			oplus_dsi_out2: endpoint@1 {
+				remote-endpoint = <&oplus_panel_in2>;
+			};
+		};
+	};
+};
+
+&dsi0 {
+	dsi_panel_pwr_supply: oplus,dsi_panel_pwr_supply {
+		oplus,panel-supply-entry@0 {
+			reg = <0>;
+			oplus,supply-name = "vddio";
+			oplus,supply-type = <OPLUS_SUPPLY_TYPE_LDO>;
+			oplus,supply-min-voltage = <1800000>;
+			oplus,supply-max-voltage = <1800000>;
+		};
+		oplus,panel-supply-entry@1 {
+			reg = <1>;
+			oplus,supply-name = "vddr";
+			oplus,supply-type = <OPLUS_SUPPLY_TYPE_GPIO>;
+			oplus,supply-gpios = <&pio 175 0>;
+		};
+		oplus,panel-supply-entry@2 {
+			reg = <2>;
+			oplus,supply-name = "vci";
+			oplus,supply-type = <OPLUS_SUPPLY_TYPE_LDO>;
+			oplus,supply-min-voltage = <3000000>;
+			oplus,supply-max-voltage = <3000000>;
+		};
+	};
+};
+
+&pio {
+	mtkfb_pins_lcm_dsi_te1: lcm-dsi-te1 {
+		pins-cmd-dat {
+			pinmux = <PINMUX_GPIO103__FUNC_DSI1_TE>;
+		};
+	};
+};
+
+&dispsys_config {
+	pinctrl-names = "mode_te_te";
+	pinctrl-0 = <&mtkfb_pins_lcm_dsi_te &mtkfb_pins_lcm_dsi_te1>;
+	status = "okay";
+};
+
+&dp_tx {
+	oplus-dp-support;
+	oplus-dp-ctrl-gpio-support;
+	oplus-dp-ctrl-gpio = <&pio 41 0x00>;
+};

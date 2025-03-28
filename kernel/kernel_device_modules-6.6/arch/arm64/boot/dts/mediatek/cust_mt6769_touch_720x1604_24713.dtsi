@@ -1,0 +1,139 @@
+// SPDX-License-Identifier: GPL-2.0+
+/*
+ * Copyright (c) 2019 MediaTek Inc.
+ *
+ */
+
+#include "mediatek/oplus_tp_24713-fw.dtsi"
+&spi2 {
+    #address-cells = <1>;
+    #size-cells = <0>;
+
+    touch_ts@0 {
+        reg = <0>;
+        compatible = "oplus,tp_noflash";
+        spi-max-frequency = <9600000>;
+        status = "okay";
+        project_id = <24713>;
+        panel_type = <19 21>; /* 19TXD 21HKC*/
+        chip-num = <2>;
+        chip-name = "NF_NT36528B","NF_ILI9883C";
+
+        	/* touch spi config */
+		reset-gpio = <&pio 34 0x00>;
+		interrupt-parent = <&pio>;
+		interrupts = <1 1 1 0>;
+		irq-gpio = <&pio 1 0x2002>;
+
+		/*tp-pinctrl*/
+		pinctrl-names = "default", "pin_set_low", "pin_set_high";
+		pinctrl-0 = <&ctp_tp_spi_mode>;
+		pinctrl-1 = <&ctp_ts_cs_poweroff &ctp_ts_int_poweroff &ctp_ts_reset_poweroff>;
+		pinctrl-2 = <&ctp_ts_cs_poweron  &ctp_ts_int_poweron  &ctp_ts_reset_poweron>;
+
+		touchpanel,max-num-support = <10>;
+		touchpanel,tx-rx-num = <18 32>;
+		touchpanel,panel-coords = <2880 6416>;
+		touchpanel,display-coords = <720 1604>;
+		touchpanel,touchmajor-limit = <0 54>;
+
+		platform_support_project = <24713 24714 24715 24728>;
+		platform_support_project_dir = <24713 24713 24713 24713>;
+		platform_support_project_commandline = "oplus24713_nt36528b_txdhkc_hdp_dsi_vdo","oplus24713_ili9883c_xxcsot_hdp_dsi_vdo";
+		firmware_name = "AB951TXD001","AB951HKC001";
+
+		touchpanel,smooth-level = <255 5 4 3 2 1>;
+		touchpanel,sensitive-level = <255 1 2 3 4 5>;
+		touchpanel,single-optimized-time = <8>;
+
+		incell_screen;
+		fw_edge_limit_support;
+		black_gesture_support;
+		charger_pump_support;
+		headset_pump_support;
+		esd_handle_support;
+		//spurious_fingerprint_support;
+		//lcd_trigger_fp_check;
+		black_gesture_test_support;
+		noflash_support;
+		smart_gesture_support;
+		pressure_report_support;
+		fw_update_app_support;
+		game_switch_support;
+		drlimit_remove_support;
+		lcd_trigger_load_tp_fw_support;
+		freq_hop_simulate_support;
+		suspend_gesture_cfg;
+		fw_update_in_probe_with_headfile;
+		health_monitor_support;
+		diaphragm_touch_support;
+		palm_to_sleep_support;
+		report_rate_white_list_support;
+		sportify_aod_gesture_support;
+		aod_gesture_support;
+		disable_touch_event_support;
+
+    };
+};
+
+&pio {
+        ctp_tp_spi_mode:ctp_tp_spi_mode{
+                pins_cmd_dat {
+                        pinmux = <PINMUX_GPIO28__FUNC_SPI2_MI>,
+                                <PINMUX_GPIO26__FUNC_SPI2_MO>,
+                                <PINMUX_GPIO27__FUNC_SPI2_CLK>,
+                                <PINMUX_GPIO25__FUNC_SPI2_CSB>;
+                        drive-strength = <2>;
+                };
+        };
+        ctp_ts_cs_poweroff: ctp_ts_cs_poweroff {
+                pins_cmd_dat {
+                        pinmux = <PINMUX_GPIO25__FUNC_SPI2_CSB>;
+                        slew-rate = <1>;
+                        output-low;
+                        bias-disable;
+                };
+        };
+        ctp_ts_cs_poweron: ctp_ts_cs_poweron {
+                pins_cmd_dat {
+                        pinmux = <PINMUX_GPIO25__FUNC_SPI2_CSB>;
+                        drive-strength = <2>;
+                };
+        };
+        ctp_ts_int_poweroff: ctp_ts_int_poweroff {
+                pins_cmd_dat {
+                        pinmux = <PINMUX_GPIO1__FUNC_GPIO1>;
+                        slew-rate = <1>;
+                        output-low;
+                        bias-disable;
+                };
+        };
+        ctp_ts_int_poweron: ctp_ts_int_poweron {
+                pins_cmd_dat {
+                        pinmux = <PINMUX_GPIO1__FUNC_GPIO1>;
+                        slew-rate = <0>;
+                        input-enable;
+                        bias-pull-up = <00>;
+                };
+        };
+        ctp_ts_reset_poweroff: ctp_ts_reset_poweroff {
+                pins_cmd_dat {
+                        pinmux = <PINMUX_GPIO34__FUNC_GPIO34>;
+                        slew-rate = <1>;
+                        output-low;
+                        bias-disable;
+                };
+        };
+
+        ctp_ts_reset_poweron: ctp_ts_reset_poweron {
+                pins_cmd_dat {
+                        pinmux = <PINMUX_GPIO34__FUNC_GPIO34>;
+                        slew-rate = <1>;
+                        output-high;
+                        bias-disable;
+                };
+        };
+};
+
+/* TOUCH end */
+

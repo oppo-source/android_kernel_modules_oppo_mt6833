@@ -1,0 +1,148 @@
+// SPDX-License-Identifier: GPL-2.0+
+/*
+ * Copyright (c) 2019 MediaTek Inc.
+ *
+ */
+#include "aladdin-22351-tp.dtsi"
+
+&spi2 {
+	status = "ok";
+	#address-cells = <1>;
+	#size-cells = <0>;
+
+	touchscreen@0 {
+		compatible = "oplus,tp_noflash";
+		reg = <0>;
+		chip-num = <2>;
+		chip-name = "NF_NT36672C","NF_ILI7807S";
+		status = "ok";
+
+		spi-max-frequency = <12000000>;    //4800000,9600000,10000000,15000000,19200000
+		reset-gpio = <&pio 34 0x00>;
+		interrupt-parent = <&pio>;
+		interrupts = <1 1 1 0>;
+		irq-gpio = <&pio 1 0x2002>;
+
+		/*tp-pinctrl*/
+		pinctrl-names = "default", "pin_set_low", "pin_set_high";
+		pinctrl-0 = <&ctp_tp_spi_mode>;
+		pinctrl-1 = <&ctp_ts_cs_poweroff &ctp_ts_int_poweroff &ctp_ts_reset_poweroff>;
+		pinctrl-2 = <&ctp_ts_cs_poweron  &ctp_ts_int_poweron  &ctp_ts_reset_poweron>;
+
+		project_id = <22351>;
+		panel_type = <7 15>;
+		firmware_name = "0xAC112TN08","0xAC112CI";
+
+		platform_support_project = <22351 22352 22353>;
+		platform_support_project_dir = <22351 22351 22351>;
+		platform_support_project_commandline = "ac112_p_7_a0009_fhd_dsi_vdo_lcm","ac112_p_d_a0010_fhd_dsi_vdo_lcm";
+
+		touchpanel,tp-index = <0>;
+		touchpanel,max-num-support = <10>;
+		touchpanel,tx-rx-num = <16 36>;
+		touchpanel,panel-coords = <4320 9600>;
+		touchpanel,display-coords = <1080 2400>;
+		touchpanel,touchmajor-limit = <0 54>;
+		touchpanel,button-type = <4>;
+		touchpanel.button-TRx = <0 0>;
+		touchpanel,smooth-level = <255 0 96 192 223 254>;
+		touchpanel,sensitive-level = <255 20 15 10 6 3>;
+		touchpanel,single-optimized-time = <8>;
+		touchpanel,msecs-to-jiffies-time = <500>;
+
+		incell_screen;
+		fw_edge_limit_support;
+		black_gesture_support;
+		charger_pump_support;
+		esd_handle_support;
+		black_gesture_test_support;
+		noflash_support;
+		smart_gesture_support;
+		fw_update_app_support;
+		pressure_report_support;
+		new_set_irq_wake_support;
+		lcd_trigger_load_tp_fw_support;
+		fw_update_in_probe_with_headfile;
+		health_monitor_v2_support;
+		exception_upload_support;
+		irq_need_dev_resume_ok;
+		suspend_gesture_cfg;
+		NF_ILI7807S_PANEL15{
+			reset-gpio = <&pio 34 0x00>;
+			interrupts = <1 0x0>;
+			irq-gpio = <&pio 1 0x2002>;
+
+			//touchpanel,irq_need_dev_resume_time = <500>;
+			touchpanel,max-num-support = <10>;
+			touchpanel,tx-rx-num = <16 36>;
+			touchpanel,panel-coords = <4320 9600>;
+			touchpanel,display-coords = <1080 2400>;
+			touchpanel,touchmajor-limit = <0 54>;
+			touchpanel,button-type = <4>;
+			touchpanel.button-TRx = <0 0>;
+			touchpanel,smooth-level = <255 5 4 3 2 1>;
+			touchpanel,sensitive-level = <255 1 2 3 4 5>;
+			touchpanel,single-optimized-time = <8>;
+		};
+	};
+};
+
+&pio {
+ctp_tp_spi_mode:ctp_tp_spi_mode{
+			pins_cmd_dat {
+				pinmux = <PINMUX_GPIO28__FUNC_SPI2_MI>,
+				       <PINMUX_GPIO26__FUNC_SPI2_MO>,
+				       <PINMUX_GPIO27__FUNC_SPI2_CLK>,
+				       <PINMUX_GPIO25__FUNC_SPI2_CSB>;
+				drive-strength = <2>;
+			};
+		};
+ctp_ts_cs_poweroff: ctp_ts_cs_poweroff {
+			    pins_cmd_dat {
+				    pinmux = <PINMUX_GPIO25__FUNC_GPIO25>;
+				    slew-rate = <1>;
+				    output-low;
+				    bias-disable;
+			    };
+	};
+	ctp_ts_cs_poweron: ctp_ts_cs_poweron {
+		pins_cmd_dat {
+			pinmux = <PINMUX_GPIO25__FUNC_SPI2_CSB>;
+			drive-strength = <2>;
+		};
+	};
+	ctp_ts_int_poweroff: ctp_ts_int_poweroff {
+		pins_cmd_dat {
+			pinmux = <PINMUX_GPIO1__FUNC_GPIO1>;
+			slew-rate = <1>;
+			output-low;
+			bias-disable;
+		};
+	};
+	ctp_ts_int_poweron: ctp_ts_int_poweron {
+		pins_cmd_dat {
+			pinmux = <PINMUX_GPIO1__FUNC_GPIO1>;
+			slew-rate = <0>;
+			input-enable;
+			bias-pull-up = <00>;
+		};
+	};
+	ctp_ts_reset_poweroff: ctp_ts_reset_poweroff {
+		pins_cmd_dat {
+			pinmux = <PINMUX_GPIO34__FUNC_GPIO34>;
+			slew-rate = <1>;
+			output-low;
+			bias-disable;
+		};
+	};
+
+	ctp_ts_reset_poweron: ctp_ts_reset_poweron {
+		pins_cmd_dat {
+			pinmux = <PINMUX_GPIO34__FUNC_GPIO34>;
+			slew-rate = <1>;
+			output-high;
+			bias-disable;
+		};
+	};
+};
+/* TOUCH end */

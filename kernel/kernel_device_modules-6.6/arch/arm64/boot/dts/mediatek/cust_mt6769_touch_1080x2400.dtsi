@@ -1,0 +1,100 @@
+// SPDX-License-Identifier: GPL-2.0+
+/*
+ * Copyright (c) 2019 MediaTek Inc.
+ *
+ */
+
+#include "mediatek/cust_mt6769_miami_tp.dtsi"
+&spi2 {
+    #address-cells = <1>;
+    #size-cells = <0>;
+    status = "ok";
+
+    touch_ts@0 {
+                compatible = "oplus,tp_noflash";
+                reg = <0>;
+                chip-name = "NF_ILI7807S","NF_NT36672C";
+                status = "ok";
+                panel_type = <15 7>;//15huaxin 7 tianma
+                chip-num = <2>;
+                project_id = <0x226AD>;
+                spi-max-frequency = <10000000>;    //4800000,9600000,15000000,19200000
+                reset-gpio = <&pio 34 0x00>;
+                interrupt-parent = <&pio>;
+                interrupts = <1 1 1 0>;
+                irq-gpio = <&pio 1 0x2002>;
+
+                novatek,reset-gpio = <&pio 34 0x00>;
+                novatek,irq-gpio = <&pio 1 0x2002>;
+
+                touchpanel,max-num-support = <10>;
+                touchpanel,tx-rx-num = <16 36>;
+                touchpanel,panel-coords = <4320 9600>;
+                touchpanel,display-coords = <1080 2400>;
+                touchpanel,touchmajor-limit = <0 54>;
+                touchpanel,button-type = <4>;
+                touchpanel.button-TRx = <0 0>;
+                platform_support_project = <0x226AD 0x226AE 0x226AF 0x226B0>;
+                platform_support_project_dir = <140973 140973 140973 140973>;
+                platform_support_project_commandline = "ili7807s_xxx_fhd_dsi_vdo_dphy_lcm_drv","nt36672c_tm_fhd_dsi_vdo_dphy_lcm_drv";
+                firmware_name = "ABHXILI","ABTMNT";
+
+                touchpanel,smooth-level = <255 5 4 3 2 1>;
+                touchpanel,sensitive-level = <255 1 2 3 4 5>;
+                touchpanel,single-optimized-time = <8>;
+
+                incell_screen;
+                fw_edge_limit_support;
+                black_gesture_support;
+                charger_pump_support;
+                headset_pump_support;
+                esd_handle_support;
+                black_gesture_test_support;
+                noflash_support;
+                smart_gesture_support;
+                fw_update_app_support;
+                game_switch_support;
+                pressure_report_support;
+                new_set_irq_wake_support;
+                lcd_trigger_load_tp_fw_support;
+                fw_update_in_probe_with_headfile;
+                health_monitor_support;
+                NF_ILI7807S {
+
+                };
+                NF_NT36672C {
+
+                };
+                NF_ILI7807S_PANEL15 {
+					reset-gpio = <&pio 34 0x00>;
+					interrupts = <1 1 1 0>;
+					irq-gpio = <&pio 1 0x2002>;
+					tp_type = <15>;//15huaxin 7 tianma
+					touchpanel,max-num-support = <10>;
+					touchpanel,tx-rx-num = <16 36>;
+					touchpanel,panel-coords = <4320 9600>;
+					touchpanel,display-coords = <1080 2400>;
+					touchpanel,touchmajor-limit = <0 54>;
+					touchpanel,smooth-level = <255 5 4 3 2 1>;
+					touchpanel,sensitive-level = <255 1 2 3 4 5>;
+					touchpanel,single-optimized-time = <8>;
+
+                };
+
+                NF_NT36672C_PANEL7 {
+					reset-gpio = <&pio 34 0x00>;
+					interrupts = <1 1 1 0>;
+					irq-gpio = <&pio 1 0x2002>;
+					tp_type = <7>;//15huaxin 7 tianma
+					touchpanel,max-num-support = <10>;
+					touchpanel,tx-rx-num = <16 36>;
+					touchpanel,panel-coords = <4320 9600>;
+					touchpanel,display-coords = <1080 2400>;
+					touchpanel,touchmajor-limit = <0 54>;
+					touchpanel,smooth-level = <255 5 4 3 2 1>;
+					touchpanel,sensitive-level = <255 1 2 3 4 5>;
+					touchpanel,single-optimized-time = <8>;
+				};
+    };
+};
+/* TOUCH end */

@@ -1,0 +1,38 @@
+&dsi0 {
+	dsc_params: oplus,dsc_params {
+		enable               = <1>;
+		ver                  = <18>;
+		slice_mode           = <1>;
+		rgb_swap             = <0>;
+		dsc_cfg              = <40>;
+		rct_on               = <1>;
+		bit_per_channel      = <10>;
+		dsc_line_buf_depth   = <11>;
+		bp_enable            = <1>;
+		bit_per_pixel        = <128>;
+		pic_height           = <2780>;
+		pic_width            = <1264>;
+		slice_height         = <20>;
+		slice_width          = <632>;
+		chunk_size           = <632>;
+		xmit_delay           = <512>;
+		dec_delay            = <599>;
+		scale_value          = <32>;
+		increment_interval   = <504>;
+		decrement_interval   = <8>;
+		line_bpg_offset      = <13>;
+		nfl_bpg_offset       = <1402>;
+		slice_bpg_offset     = <1103>;
+		initial_offset       = <6144>;
+		final_offset         = <4320>;
+		flatness_minqp       = <7>;
+		flatness_maxqp       = <16>;
+		rc_model_size        = <8192>;
+		rc_edge_factor       = <6>;
+		rc_quant_incr_limit0 = <15>;
+		rc_quant_incr_limit1 = <15>;
+		rc_tgt_offset_hi     = <3>;
+		rc_tgt_offset_lo     = <3>;
+	};
+	#include "panel-ac180-p-3-a0020-dsi-cmd-spr.dtsi"
+};

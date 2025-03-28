@@ -1,0 +1,8 @@
+config CAMERA_PMIC_ENABLE
+	tristate "CAMERA_PMIC_ENABLE for MT6877"
+	help
+	  This is a driver for the MediaTek
+	  image sensors.
+	  To compile this driver as a module, choose M here: the
+	  module will be called CAMERA_PMIC_ENABLE.
+

@@ -1,0 +1,250 @@
+// SPDX-License-Identifier: (GPL-2.0 OR MIT)
+/*
+ * Copyright (C) 2022 MediaTek Inc.
+ */
+#include "k6991v1_64.dts"
+/* #ifdef OPLUS_FEATURE_CHG_BASIC */
+#include "mediatek/oplus_chg/oplus_charge_23101.dtsi"
+#include "mediatek/oplus_chg/oplus-chg-23205-pps.dtsi"
+/* #endif */
+
+/* #ifdef OPLUS_FEATURE_CHG_BASIC */
+/* Add for DX-4 charge device-tree */
+#include "mediatek/oplus_misc_23101.dtsi"
+/* #endif */
+
+/* #ifdef OPLUS_FEATURE_SENSOR */
+#include "mediatek/oplus_sensor_23101.dtsi"
+/* #endif */
+
+/* Add for DX-4 ppb device-tree */
+#include "mediatek/oplus_ppb_23101.dtsi"
+/* #endif */
+
+#include <dt-bindings/pinctrl/mt6373-pinfunc.h>
+
+/* #ifdef OPLUS_DISPLAY_FEATURE */
+#include "mediatek/oplus-display/mt6991-yala-23101-display-overlay.dtsi"
+/* #endif */
+&odm {
+	/*OPLUS_FEATURE_OEM_OCDT oppo project start */
+	oplus_project:oplus_project {
+		compatible = "oplus,oplus_project";
+    };
+
+    oplus_boardid:oplus_boardid {
+        compatible = "oplus,oplus_boardid-v2";
+        support-dtsino=<23205>;//only one u32
+        /*first one is low 32bit, last one is highest 32bit, must be 32-bit for 4gpios*/
+        support-pcbmask=<0xffffffff 0xffffffff 0xffffffff>;
+    };
+
+    pmic_history_count:pmic_history_count {
+    };
+    pmic_history0:pmic_history0 {
+    };
+    pmic_history1:pmic_history1 {
+    };
+    pmic_history2:pmic_history2 {
+    };
+    pmic_history3:pmic_history3 {
+    };
+};
+
+&odm {
+/* Add for sim detect */
+    oplus_sim_detect {
+        compatible = "oplus, sim_detect";
+        Hw,sim_det = <&pio 44 0x00>;
+    };
+};
+
+
+//#ifdef OPLUS_FEATRUE_ESIM
+&odm {
+    oplus-gpio {
+        compatible = "oplus,oplus-gpio";
+        pinctrl-names = "default", "sim2_det_no_pull", "sim2_det_pull_high", "sim2_det_pull_low";
+        pinctrl-0 = <&esim_gpio &esim_det_gpio &esim_det_en &sim2_det_no_pull>;
+        pinctrl-1 = <&sim2_det_no_pull>;
+        pinctrl-2 = <&sim2_det_pull_high>;
+        pinctrl-3 = <&sim2_det_pull_low>;
+        oplus,oplus-gpio-esim = <&mt6373_pio 10 0>;
+        oplus,oplus-esim-det = <&pio 218 0>;
+        oplus,oplus-esim-en = <&pio 25 0>;
+        oplus,oplus-sim2-det = <&pio 213 0>;
+    };
+};
+
+&mt6373_pio {
+    esim_gpio: esim_gpio {
+        pins_cmd_dat {
+            pinmux = <PINMUX_MT6373_GPIO10__FUNC_GPIO10>;
+            drive-strength = <2>; /* 2 MA */
+            output-high;
+        };
+    };
+};
+
+&pio {
+    esim_det_gpio: esim_det_gpio {
+        pins_cmd_dat {
+            pinmux = <PINMUX_GPIO218__FUNC_GPIO218>;
+            slew-rate = <1>;
+            bias-disable; /* NO pull */
+            drive-strength = <2>; /* 2 MA */
+            output-high;
+        };
+    };
+
+    esim_det_en: esim_det_en {
+        pins_cmd_dat {
+            pinmux = <PINMUX_GPIO25__FUNC_GPIO25>;
+            slew-rate = <1>;
+            bias-disable; /* NO pull */
+            drive-strength = <2>; /* 2 MA */
+            output-high;
+        };
+    };
+
+    sim2_det_no_pull: sim2_det_no_pull {
+        pins_cmd_dat {
+            pinmux = <PINMUX_GPIO213__FUNC_GPIO213>;
+            slew-rate = <0>;
+            bias-disable; /* NO pull */
+            input-enable;
+        };
+    };
+
+    sim2_det_pull_high: sim2_det_pull_high {
+        pins_cmd_dat {
+            pinmux = <PINMUX_GPIO213__FUNC_GPIO213>;
+            slew-rate = <0>;
+            bias-pull-up;
+            input-enable;
+        };
+    };
+
+    sim2_det_pull_low: sim2_det_pull_low {
+        pins_cmd_dat {
+            pinmux = <PINMUX_GPIO213__FUNC_GPIO213>;
+            slew-rate = <0>;
+            bias-pull-down;
+            input-enable;
+        };
+    };
+};
+
+&odm {
+
+        oplus_devinfo:oplus_devinfo {
+                compatible = "oplus-devinfo";
+                pinctrl-names = "default", "aboard_gpio0_sleep", "aboard_gpio0_active", "aboard_gpio0_idle";
+                pinctrl-0 = <&hw_pins_default>;
+                pinctrl-1 = <&aboard_pin_gpio0_sleep>;
+                pinctrl-2 = <&aboard_pin_gpio0_active>;
+                pinctrl-3 = <&aboard_pin_gpio0_idle>;
+                main-sub {
+                        use_tristate_gpio;
+                        compatible = "hw-match, main-sub";
+                        aboard-gpio0 = <&pio 207 0x00>;
+                        aboard-patterns = <0 0 1>;        //0[high-resistance] 1[pull-down] 2[pull-up]
+                        //main board
+                        match-projects = <23101 23102 23205>;
+                };
+        };
+
+};
+
+&keypad {
+        keypad,volume-down = <&pio 11 0x00>;
+        pinctrl-names = "volume_down_as_int";
+        pinctrl-0 = <&volume_down_gpio_eint>;
+        status = "okay";
+};
+
+&pio {
+        volume_down_gpio_eint:volume_down@0{
+                pins_cmd_dat {
+                        pinmux = <PINMUX_GPIO11__FUNC_GPIO11>;
+                        slew-rate = <0>;  /*direction 0:in, 1:out*/
+                        input-enable;
+                        bias-disable;
+                };
+        };
+};
+
+&odm {
+        kpd_volume_down:kpd_volume_down {
+                compatible = "mediatek, VOLUME_DOWN-eint";
+                interrupt-parent = <&pio>;
+                interrupts = <11 IRQ_TYPE_EDGE_FALLING 11 0>;
+                debounce = <32000>;
+                status = "okay";
+        };
+};
+
+&gpio_keys {
+    status = "disabled";
+};
+
+&pio{
+        hw_pins_default:default@hw_sub_id {
+	};
+
+        aboard_pin_gpio0_sleep:sleep@id0 {
+		pins_cmd_dat {
+			pinmux = <PINMUX_GPIO207__FUNC_GPIO207>;
+			slew-rate = <0>;
+			bias-pull-down;
+			input-enable;
+		};
+	};
+
+	aboard_pin_gpio0_active:active@id0 {
+		pins_cmd_dat {
+			pinmux = <PINMUX_GPIO207__FUNC_GPIO207>;
+			slew-rate = <0>;
+			bias-pull-up;
+			input-enable;
+		};
+	};
+
+	aboard_pin_gpio0_idle:idle@id0 {
+		pins_cmd_dat {
+			pinmux = <PINMUX_GPIO207__FUNC_GPIO207>;
+			slew-rate = <0>;
+			bias-disable;
+			input-enable;
+		};
+	};
+};
+
+&pio {
+	//#ifdef OPLUS_VENDOR_SWTP
+	swtp: swtp {
+		compatible = "mediatek, swtp-eint";
+	};
+	 swtp_1: swtp_1 {
+        compatible = "mediatek, swtp1-eint";
+    };
+	//#endif  /*OPLUS_VENDOR_SWTP*/
+};
+
+&mrdump_ext_rst	{
+	status = "disabled";
+};
+
+#include "mediatek/cust_mt6991_konka_camera_v4l2.dtsi"
+#include <oplus6991_23205/cust.dtsi>
+#include "mediatek/cust_mt6991_yala_audio.dtsi"
+#include "mediatek/nfc/mt6991_23101_sn220.dtsi"
+#include "mediatek/wifi_bt_fem/mt6991_fem_2G_2A.dtsi"
+/* Add for Yala(23101) fingerprint device-tree */
+/* #ifdef CONFIG_UFF_FINGERPRINT */
+#include "mediatek/oplus_uff_23101.dtsi"
+#include "mediatek/oplus_tp_23101.dtsi"
+/* #endif CONFIG_UFF_FINGERPRINT */
+#include "mediatek/cust_mt6991_thermal.dtsi"
+/*End of this file, DO NOT ADD ANYTHING HERE*/
+

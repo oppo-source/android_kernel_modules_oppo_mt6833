@@ -1,0 +1,178 @@
+/* Copyright (c) 2018, The Linux Foundation. All rights reserved.
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License version 2 and
+ * only version 2 as published by the Free Software Foundation.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ */
+/* accdet start */
+&accdet {
+	/* accdet micbias voltage: 0x09:2.85v 0x08:2.8v 0x07,
+	 * 2.7v;0x05,2.5v;0x02,1.9v
+	 */
+	accdet-mic-vol = <7>;
+	/* accdet pwm_width, pwm_thresh, fall_delay, rise_delay
+	 * debounce0, debounce1, debounce3, debounce4
+	 * eint pwm_width, eint pwm_thresh
+	 * eint deb(debounce0, debounce1, debounce2, debounce3), inv_debounce
+	 */
+
+	headset-mode-setting = <0x500 0x500 1 0x1f0
+				0x1325 0x800 0x3D4 0x44
+				0x0 0x7
+				0x5 0x9 0x9 0xd 0xe>;
+
+	/*headset-mode-setting = <0x500 0x500 1 0x1f0
+	*                      0x800 0x800 0x20 0x44
+	*                      0x4 0x1
+	*                      0x5 0x3 0x3 0x5 0xe>;
+	*/
+
+	accdet-plugout-debounce = <1>;
+	/*1:ACC mode, 2:low cost without in bias, 6:low cost with in bias*/
+	accdet-mic-mode = <2>;
+	/*0--MD_MAX--UP_MAX--DW_MAX*/
+
+	headset-three-key-threshold = <0 82 170 306>;
+
+	//headset-three-key-threshold = <0 80 220 400>;
+
+	headset-three-key-threshold-CDD = <0 121 192 600>;
+	/*0--MD_MAX--VOICE_MAX--UP_MAX--DW_MAX*/
+	headset-four-key-threshold = <0 58 121 192 400>;
+
+
+	/* moisture HW mode config start. Enable moisture detection or not
+	 * default use HW mode for moisture detection
+	 */
+	moisture_detect_enable = <1>;
+
+	/* select VTH to 2v and 500k, use internal resitance */
+	eint_use_ext_res = <0>;
+
+	/* enable eint detection mode, if moisture detection enable
+	 * eint_detect_mode = moisture_detect_mode;otherwise, select
+	 * eint_detect_mode = 4 as DEFAULT
+	 */
+	eint_detect_mode = <5>;
+	/* enable moisture detection mode, if moisture detection enable
+	 * eint_detect_mode = moisture_detect_mode
+	 */
+	moisture_detect_mode = <5>;
+	/* select 0: 2.8V; 1: 2.4V; 2: 2V; 3: VTH=MVTH(VTH2) */
+	moisture_comp_vth = <2>;
+//#ifdef OPLUS_BUG_COMPATIBILITY
+	moisture_comp_vref2 = <2>;
+//#else
+	/* vref2 voltage for different water impedance */
+	//moisture_comp_vref2 = <0>;
+//#endif
+	/* moisture HW mode config end */
+
+	/* moisture SW mode config start, use external resister or not.
+	 * DEFAULT NOT NEED
+	 */
+	moisture_use_ext_res = <0>;
+	/* moisture external resister ohm, SW mode by auxadc */
+	moisture-external-r = <2000000>;
+	/* moisture internal resister ohm, SW mode by auxadc */
+	moisture-internal-r = <47000>;
+	/* moisture of water resister ohm, SW mode by auxadc*/
+	moisture-water-r = <10000>;
+	/* moisture SW mode config end */
+        //#endif /* VENDOR_EDIT */
+	status = "okay";
+};
+/* accdet end */
+
+&pio {
+	sia81xx_gpio_L: sia81xx_gpio_L {
+		pins_cmd_dat {
+			pinmux = <PINMUX_GPIO63__FUNC_GPIO63>;
+			slew-rate = <1>;
+			bias-disable;
+		};
+	};
+};
+
+&sia81xx_L {
+	compatible = "si,sia81xx";
+	si,si_pa_type = "sia8109";
+	si,si_pa_reset = <&pio 63 0>;
+	pinctrl-names = "sia81xx_gpio";
+	pinctrl-0 = <&sia81xx_gpio_L>;
+	si,sia81xx_disable_pin = <0>;
+	channel_num = <0>;
+	owi_mode = <1>;
+	en_x_filter = <0>;
+	en_dynamic_updata_vdd = <1>;
+	dynamic_updata_vdd_port = <0x8>;
+	algo_is_v2 = <1>;
+};
+
+&sia81xx_R {
+        compatible = "si,sia81xx";
+        si,si_pa_type = "sia8109";
+        si,si_pa_reset = <&pio 63 0>;
+        pinctrl-names = "sia81xx_gpio";
+        pinctrl-0 = <&sia81xx_gpio_L>;
+        si,sia81xx_disable_pin = <0>;
+        channel_num = <1>;
+        owi_mode = <1>;
+        en_x_filter = <0>;
+        en_dynamic_updata_vdd = <1>;
+        dynamic_updata_vdd_port = <0x8>;
+        algo_is_v2 = <1>;
+};
+
+&sound {
+	/* this dtsi config for product's special config, AudioHal read ctl 'OPLUS_AUDIO_EXTEN_CONFIG' get the values*
+	 * 1st value --> PA type: 0:NXP Pa, 1:Awinic Pa 2:sia81xx Pa*/
+	audio_extern_config = <1>;
+        si,sia81xx-max-num = <2>;
+        si,sia81xx-aux-devs = <&sia81xx_L>, <&sia81xx_R>;
+        si,sia81xx-aux-devs-prefix = "SpkrLeft", "SpkrRight";
+};
+
+&i2c6 {
+	sia81xx_i2c_L: sia81xx_i2c@L {
+		compatible = "si,sia81xx-i2c";
+		reg = <0x28>;
+		si,sia81xx-dev = <&sia81xx_L>;
+	};
+
+	sia81xx_i2c_R: sia81xx_i2c@R {
+		compatible = "si,sia81xx-i2c";
+		reg = <0x29>;
+		si,sia81xx-dev = <&sia81xx_R>;
+	};
+
+	aw87xxx_pa_58@58 {
+		compatible = "awinic,aw87xxx_pa_2_x_0";
+		reset-gpio = <&pio 139 0>;
+		reg = <0x58>;
+		dev_index = < 0 >;
+		aw-voltags-min = /bits/ 8 <0x02>;
+		status = "okay";
+	};
+};
+
+//#ifdef OPLUS_FEATURE_AUDIODRIVER
+//add for type-c headset and si smartpa
+//oplus extend audio
+/*
+&audio_extend {
+	//for sipa speaker
+	oplus,speaker-vendor = "sipa";
+	oplus,speaker-i2s-id = <3>;
+	oplus,speaker-i2s-id-in = <0>;
+	oplus,speaker-codec-name = "sipa_i2c.6-006c","sipa_i2c.6-006d";
+	oplus,speaker-codec-dai-name = "sia91xx-aif-6-6c","sia91xx-aif-6-6d";
+	oplus,spk-i2s-index = <3 9>;
+};
+*/
+//#endif /* OPLUS_FEATURE_AUDIODRIVER */

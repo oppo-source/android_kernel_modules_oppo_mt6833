@@ -1,0 +1,189 @@
+// SPDX-License-Identifier: GPL-2.0-only
+/*
+* Copyright (C) 2020-2021 Oplus. All rights reserved.
+*/
+
+/*
+ * Add for display bringup
+ */
+
+/* lcm_bias:i2c0 */
+&i2c0 {
+	clock-frequency = <400000>;
+
+	ocp2130@3E {
+		compatible = "mediatek,i2c_lcd_bias";
+		reg = <0x3E>;
+		status = "okay";
+	};
+};
+
+&led6 {
+	led_mode = <4>;
+	data = <1>;
+	pwm_config = <0 3 0 0 0>;
+};
+&mtk_leds {
+	compatible = "mediatek,disp-leds";
+
+	backlight {
+		label = "lcd-backlight";
+		min-brightness = <1>;
+		max-brightness = <4095>;
+		max-hw-brightness = <4095>;
+		led_mode = <4>;
+		led-bits = <12>;
+		trans-bits = <12>;
+		default-state = "on";
+	};
+};
+
+/* DISPSYS GPIO standardization */
+&pio {
+	mtkfb_pins_lcm_rst_out1_gpio: lcm_rst_out1_gpio {
+		pins_cmd_dat {
+			pinmux = <PINMUX_GPIO45__FUNC_GPIO45>;
+			slew-rate = <1>;
+			output-high;
+		};
+	};
+
+	mtkfb_pins_lcm_rst_out0_gpio: lcm_rst_out0_gpio {
+		pins_cmd_dat {
+			pinmux = <PINMUX_GPIO45__FUNC_GPIO45>;
+			slew-rate = <1>;
+			output-low;
+		};
+	};
+
+	mtkfb_pins_lcm_dsi_te: lcm_dsi_te {
+		pins_cmd_dat {
+			pinmux = <PINMUX_GPIO44__FUNC_DSI_TE>;
+		};
+	};
+
+	mtkfb_pins_lcd_bias_enp1_gpio: lcd_bias_enp1_gpio {
+		pins_cmd_dat {
+			pinmux = <PINMUX_GPIO169__FUNC_GPIO169>;
+			slew-rate = <1>;
+			output-high;
+		};
+	};
+
+	mtkfb_pins_lcd_bias_enp0_gpio: lcd_bias_enp0_gpio {
+		pins_cmd_dat {
+			pinmux = <PINMUX_GPIO169__FUNC_GPIO169>;
+			slew-rate = <1>;
+			output-low;
+		};
+	};
+	mtkfb_pins_lcd_bias_enn1_gpio: lcd_bias_enn1_gpio {
+		pins_cmd_dat {
+			pinmux = <PINMUX_GPIO165__FUNC_GPIO165>;
+			slew-rate = <1>;
+			output-high;
+		};
+	};
+
+	mtkfb_pins_lcd_bias_enn0_gpio: lcd_bias_enn0_gpio {
+		pins_cmd_dat {
+			pinmux = <PINMUX_GPIO165__FUNC_GPIO165>;
+			slew-rate = <1>;
+			output-low;
+		};
+	};
+};
+
+&mtkfb {
+	pinctrl-names =
+		"lcm_rst_out1_gpio", "lcm_rst_out0_gpio",
+		"mode_te_te", "lcd_bias_enp1_gpio",
+		"lcd_bias_enp0_gpio",
+		"lcd_bias_enn1_gpio",
+		"lcd_bias_enn0_gpio";
+	pinctrl-0 = <&mtkfb_pins_lcm_rst_out1_gpio>;
+	pinctrl-1 = <&mtkfb_pins_lcm_rst_out0_gpio>;
+	pinctrl-2 = <&mtkfb_pins_lcm_dsi_te>;
+	pinctrl-3 = <&mtkfb_pins_lcd_bias_enp1_gpio>;
+	pinctrl-4 = <&mtkfb_pins_lcd_bias_enp0_gpio>;
+	pinctrl-5 = <&mtkfb_pins_lcd_bias_enn1_gpio>;
+	pinctrl-6 = <&mtkfb_pins_lcd_bias_enn0_gpio>;
+	status = "okay";
+
+	oplus_display_twelvebits_support;
+	oplus_display_cabc_support;
+	oplus_display_panel_cabc_support;
+	oplus_display_bls_blmap_support;
+	oplus_display_panel_cabc_power_saving_support;
+	oplus_display_cabc_cmdq_support;
+	oplus_display_normal_max_brightness = <4095>;
+};
+
+&dispsys_config {
+	pinctrl-names =
+		"lcm_rst_out1_gpio", "lcm_rst_out0_gpio",
+		"mode_te_te",
+        "lcd_bias_enp1_gpio", "lcd_bias_enp0_gpio",
+        "lcd_bias_enn1_gpio", "lcd_bias_enn0_gpio";
+	pinctrl-0 = <&mtkfb_pins_lcm_rst_out1_gpio>;
+	pinctrl-1 = <&mtkfb_pins_lcm_rst_out0_gpio>;
+	pinctrl-2 = <&mtkfb_pins_lcm_dsi_te>;
+	pinctrl-3 = <&mtkfb_pins_lcd_bias_enp1_gpio>;
+	pinctrl-4 = <&mtkfb_pins_lcd_bias_enp0_gpio>;
+	pinctrl-5 = <&mtkfb_pins_lcd_bias_enn1_gpio>;
+	pinctrl-6 = <&mtkfb_pins_lcd_bias_enn0_gpio>;
+	status = "okay";
+};
+
+&dsi0 {
+	status = "okay";
+	#address-cells = <1>;
+	#size-cells = <0>;
+	panel9@0 {
+		compatible = "oplus23703_ili9883c_hkc_hdp_dsi_vdo";
+		reg = <0>;
+		reset-gpios = <&pio 45 0>;
+		bias-gpios = <&pio 169 0>,<&pio 165 0>;
+		gate-ic = <4831>;
+		pinctrl-names = "default";
+		port {
+			panel_in9: endpoint {
+				remote-endpoint = <&dsi_out>;
+			};
+		};
+	};
+	panel10@0 {
+		compatible = "oplus23703_ili9883c_dj_hdp_dsi_vdo";
+		reg = <1>;
+		reset-gpios = <&pio 45 0>;
+		bias-gpios = <&pio 169 0>,<&pio 165 0>;
+		gate-ic = <4831>;
+		pinctrl-names = "default";
+		port {
+			panel_in10: endpoint {
+				remote-endpoint = <&dsi_out>;
+			};
+		};
+	};
+	panel11@0 {
+		compatible = "oplus23703_ft8057p_xx_hdp_dsi_vdo";
+		reg = <2>;
+		reset-gpios = <&pio 45 0>;
+		bias-gpios = <&pio 169 0>,<&pio 165 0>;
+		gate-ic = <4831>;
+		pinctrl-names = "default";
+		port {
+			panel_in11: endpoint {
+				remote-endpoint = <&dsi_out>;
+			};
+		};
+	};
+        ports {
+		port {
+			dsi_out: endpoint {
+				remote-endpoint = <&panel_in9>;
+			};
+		};
+	};
+};
+/* DISPSYS GPIO standardization end*/

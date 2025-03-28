@@ -1,0 +1,101 @@
+package(
+    default_visibility = [
+        "//visibility:public",
+    ],
+)
+
+load("@mgk_info//:dict.bzl","OPLUS_DEFCONFIG_OVERLAYS")
+load("//build/bazel_mgk_rules:mgk.bzl", "define_mgk")
+load("//oplus/bazel:oplus_modules_list.bzl", "oplus_ddk_get_oplus_modules_list")
+
+mgk_kmi_symbol_list = "//kernel-6.6:android/abi_gki_aarch64_mtk"
+
+filegroup(
+        name = "mgk_configs",
+        srcs = glob([
+            "arch/arm64/configs/*",
+            "kernel/configs/**",
+            "**/Kconfig",
+            "drivers/cpufreq/Kconfig.*",
+        ]) + [
+            "Kconfig.ext",
+            # FIXME
+            "Makefile.ext",
+            "certs/mtk_signing_key.pem",
+        ],
+)
+filegroup(
+        name = "mgk_dt-bindings",
+        srcs = glob([
+            "include/dt-bindings/**",
+            "include/dtc/**",
+        ]),
+)
+
+load(
+    "//build/kernel/kleaf:kernel.bzl",
+    "ddk_headers",
+)
+
+ddk_headers(
+    name = "all_mgk_headers",
+    hdrs = glob(["**/*.h"]),
+    linux_includes = ["include",
+        "drivers/gpu/drm/mediatek/mediatek_v2",
+        "drivers/misc/mediatek/include/mt-plat",
+        "drivers/misc/mediatek/include",
+        "drivers/misc/mediatek/sensor/2.0/mtk_nanohub",
+        "drivers/misc/mediatek/sensor/2.0/mtk_nanohub/nanohub",
+        "drivers/misc/mediatek/sensor/2.0/core",
+        "drivers/misc/mediatek/sensor/2.0/sensorhub",
+        "drivers/misc/mediatek/scp/include",
+        "drivers/misc/mediatek/flashlight",
+    ],
+    visibility = ["//visibility:public"],
+)
+
+# mgk_64_k66
+load("//kernel_device_modules-6.6:kernel/kleaf/mgk_64.bzl",
+     "mgk_64_defconfig",
+     "mgk_64_kleaf_modules",
+     "mgk_64_kleaf_eng_modules",
+     "mgk_64_kleaf_userdebug_modules",
+     "mgk_64_kleaf_user_modules",
+     "mgk_64_common_modules",
+     "mgk_64_common_eng_modules",
+     "mgk_64_common_userdebug_modules",
+     "mgk_64_common_user_modules",
+     "mgk_64_device_modules",
+     "mgk_64_platform_device_modules",
+     "mgk_64_device_eng_modules",
+     "mgk_64_platform_device_eng_modules",
+     "mgk_64_device_userdebug_modules",
+     "mgk_64_platform_device_userdebug_modules",
+     "mgk_64_device_user_modules",
+     "mgk_64_platform_device_user_modules"
+)
+
+common_oplus_modules_list = oplus_ddk_get_oplus_modules_list()
+
+define_mgk(
+    name = "mgk_64_k66",
+    defconfig = mgk_64_defconfig,
+    kleaf_modules = mgk_64_kleaf_modules + common_oplus_modules_list,
+    kleaf_eng_modules = mgk_64_kleaf_eng_modules,
+    kleaf_userdebug_modules = mgk_64_kleaf_userdebug_modules,
+    kleaf_user_modules = mgk_64_kleaf_user_modules,
+    common_modules = mgk_64_common_modules,
+    common_eng_modules = mgk_64_common_eng_modules,
+    common_userdebug_modules = mgk_64_common_userdebug_modules,
+    common_user_modules = mgk_64_common_user_modules,
+    device_modules = mgk_64_device_modules,
+    platform_device_modules = mgk_64_platform_device_modules,
+    device_eng_modules = mgk_64_device_eng_modules,
+    platform_device_eng_modules = mgk_64_platform_device_eng_modules,
+    device_userdebug_modules = mgk_64_device_userdebug_modules,
+    platform_device_userdebug_modules = mgk_64_platform_device_userdebug_modules,
+    device_user_modules = mgk_64_device_user_modules,
+    platform_device_user_modules = mgk_64_platform_device_user_modules,
+    symbol_list = mgk_kmi_symbol_list,
+    oplus_compile_platform = OPLUS_DEFCONFIG_OVERLAYS,
+)

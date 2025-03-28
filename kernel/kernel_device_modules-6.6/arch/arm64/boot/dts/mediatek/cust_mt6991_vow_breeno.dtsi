@@ -1,0 +1,6 @@
+// SPDX-License-Identifier: GPL-2.0
+/* Copyright (c) 2024 Oplus Mobile Comm Corp., Ltd. */
+
+&mt6681_sound {
+	oplus,vow-mic-pga-gain = <6>;
+};

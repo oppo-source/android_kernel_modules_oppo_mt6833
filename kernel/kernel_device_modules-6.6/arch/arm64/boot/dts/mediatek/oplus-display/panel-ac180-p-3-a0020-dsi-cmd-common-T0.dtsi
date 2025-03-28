@@ -1,0 +1,186 @@
+				oplus,dsi-off-command = [
+					39 00 00 00 0A 00 01 28
+					39 00 00 00 78 00 01 10
+				];
+				oplus,dsi-set-backlight-command = [
+					39 00 00 00 00 00 03 51 00 00
+				];
+				oplus,dsi-aod-on-command = [
+					39 00 00 40 00 00 04 FF 5A A5 02
+					39 00 00 40 00 00 03 AB 00 00 //TE Shift OFF
+					39 00 00 40 00 00 03 88 08 00
+					39 00 00 40 00 00 04 FF 5A A5 00
+					39 00 00 40 00 00 02 39 00
+					39 00 00 00 00 00 05 51 00 00 0D BB
+				];
+				oplus,dsi-aod-high-mode-command = [
+					39 00 00 40 00 00 04 FF 5A A5 00
+					39 00 00 00 00 00 05 51 00 00 0D BB
+				];
+				oplus,dsi-aod-low-mode-command = [
+					39 00 00 40 00 00 04 FF 5A A5 00
+					39 00 00 00 00 00 05 51 00 00 0A 81
+				];
+				oplus,dsi-aod-off-compensation-command = [
+					39 00 00 40 00 00 04 FF 5A A5 02
+					39 00 00 40 00 00 03 88 C0 00
+					39 00 00 40 00 00 04 FF 5A A5 4F
+					15 00 00 40 00 00 02 80 01
+					15 00 00 40 00 00 02 81 04
+					15 00 00 40 00 00 02 88 78
+					39 00 00 40 00 00 04 FF 5A A5 1F
+					39 00 00 40 00 00 06 89 43 00 0B F0 BB
+					39 00 00 40 00 00 03 82 08 08
+					39 00 00 40 00 00 06 85 7F 7F 7F 7F 73
+					39 00 00 40 00 00 04 FF 5A A5 00
+					15 00 00 40 00 00 02 4D 01
+					39 00 00 40 00 00 04 FF 5A A5 4F
+					15 00 00 40 00 00 02 AC 0C
+					39 00 00 40 00 00 04 FF 5A A5 13
+					15 00 00 40 00 00 02 CB 00
+					39 00 00 40 00 00 04 FF 5A A5 4F
+					15 00 00 40 00 00 02 8A 78
+					39 00 00 40 00 00 04 FF 5A A5 1F
+					39 00 00 40 00 00 06 89 43 00 04 F0 55
+					39 00 00 40 00 00 03 82 00 80
+					39 00 00 40 00 00 06 85 5F 7F 00 00 00
+					39 00 00 40 00 00 04 FF 5A A5 02
+					39 00 00 40 00 00 03 AB AF 82
+					39 00 00 40 00 00 04 FF 5A A5 00
+					15 00 00 40 00 00 02 38 00
+					39 00 00 40 00 00 04 FF 5A A5 4F
+					15 00 00 40 00 00 02 8A 78
+					39 00 00 40 00 00 04 FF 5A A5 00
+					15 00 00 40 00 00 02 00 00
+					39 00 00 40 00 00 04 FF 5A A5 4F
+					15 00 00 40 00 00 02 8A 78
+					39 00 00 40 00 00 04 FF 5A A5 00
+					15 00 00 40 00 00 02 00 00
+					39 00 00 40 00 00 04 FF 5A A5 4F
+					15 00 00 40 00 00 02 8A 78
+					39 00 00 40 00 00 04 FF 5A A5 00
+					15 00 00 40 00 00 02 00 00
+					39 00 00 40 00 00 04 FF 5A A5 4F
+					15 00 00 40 00 00 02 8A 78
+					39 00 00 40 00 00 04 FF 5A A5 00
+					15 00 00 40 00 00 02 00 00
+					39 00 00 40 00 00 04 FF 5A A5 4F
+					15 00 00 40 00 00 02 8A 78
+					39 00 00 40 00 00 04 FF 5A A5 00
+					15 00 00 40 00 00 02 00 00
+					39 00 00 40 00 00 04 FF 5A A5 4F
+					15 00 00 40 00 00 02 8A 78
+					39 00 00 40 00 00 04 FF 5A A5 00
+					15 00 00 40 00 00 02 4D 00
+					39 00 00 40 00 00 04 FF 5A A5 4F
+					15 00 00 40 00 00 02 AC 0D
+					39 00 00 40 00 00 04 FF 5A A5 13
+					15 00 00 40 00 00 02 CB 01
+					39 00 00 40 00 00 04 FF 5A A5 00
+					15 00 00 40 00 00 02 00 00
+					39 00 00 40 00 00 04 FF 5A A5 4F
+					15 00 00 00 00 00 02 8B 78
+				];
+				oplus,dsi-lhbm-pressed-icon-gamma-command = [
+				];
+				oplus,dsi-lhbm-pressed-icon-grayscale-command = [
+				];
+				oplus,dsi-lhbm-pressed-icon-on-command = [
+					39 00 00 40 00 00 04 FF 5A A5 00
+					39 00 00 00 00 00 02 6E 03
+				];
+				oplus,dsi-lhbm-pressed-icon-off-command = [
+					39 00 00 40 00 00 04 FF 5A A5 00
+					39 00 00 00 00 00 02 6E 00
+				];
+				oplus,dsi-switch-hbm-apl-on-command = [
+					39 00 00 40 00 00 04 FF 5A A5 1E
+					39 00 00 40 00 00 02 80 A9
+					39 00 00 00 00 00 04 FF 5A A5 00
+				];
+				oplus,dsi-switch-hbm-apl-off-command = [
+					39 00 00 40 00 00 04 FF 5A A5 1E
+					39 00 00 40 00 00 02 80 89
+					39 00 00 00 00 00 04 FF 5A A5 00
+				];
+				oplus,dsi-set-seed-vivid-command = [
+				];
+				oplus,dsi-set-seed-expert-command = [
+				];
+				oplus,dsi-set-seed-natural-command = [
+				];
+				oplus,dsi-set-uir-seed-vivid-command = [
+					/* Loading On 130%~200%*/
+					39 00 00 40 00 00 04 FF 5A A5 1E
+					39 00 00 40 00 00 1F 92 FF 9B 9B CF FF FF FF FF 4A 4A FF 4A 4A 4A 4A FF 4A 4A 4A 4A FF 4A 4A 4A 4A FF 4A 4A 4A 4A
+					39 00 00 40 00 00 02 80 A9
+					39 00 00 40 00 00 02 85 48
+					39 00 00 40 00 00 0C 99 66 75 9E 67 C9 25 77 8D C5 08 00
+					39 00 00 40 00 00 02 9A 40
+					39 00 00 40 00 00 02 9B 00
+					/* dimming step 128 */
+					39 00 00 40 00 00 03 81 30 60
+					39 00 00 40 00 00 02 A3 00
+					39 00 00 00 00 00 04 FF 5A A5 00
+				];
+				oplus,dsi-set-uir-seed-expert-command = [
+					/* Loading On 100%~200%*/
+					39 00 00 40 00 00 04 FF 5A A5 1E
+					39 00 00 40 00 00 1F 92 FF 9B 9B CF FF FA FF FF EA EA AA EA EA EA EA AA EA EA EA EA AA EA EA EA EA AA EA EA EA EA
+					39 00 00 40 00 00 02 80 A9
+					39 00 00 40 00 00 02 85 48
+					39 00 00 40 00 00 0C 99 66 75 9E 67 C9 25 77 8D C5 08 00
+					39 00 00 40 00 00 02 9A 40
+					39 00 00 40 00 00 02 9B 00
+					39 00 00 40 00 00 03 81 30 60
+					39 00 00 40 00 00 02 A3 00
+					39 00 00 00 00 00 04 FF 5A A5 00
+				];
+				oplus,dsi-set-uir-seed-natural-command = [
+					/* Loading On 110%~200%*/
+					39 00 00 40 00 00 04 FF 5A A5 1E
+					39 00 00 40 00 00 1F 92 FF 9B 9B CF FF FF FF FF 0A 0A FF 0A 0A 0A 0A FF 0A 0A 0A 0A FF 0A 0A 0A 0A FF 0A 0A 0A 0A
+					39 00 00 40 00 00 02 80 A9
+					39 00 00 40 00 00 02 85 48
+					39 00 00 40 00 00 0C 99 66 75 9E 67 C9 25 77 8D C5 08 00
+					39 00 00 40 00 00 02 9A 40
+					39 00 00 40 00 00 02 9B 00
+					39 00 00 40 00 00 03 81 30 60
+					39 00 00 40 00 00 02 A3 00
+					39 00 00 00 00 00 04 FF 5A A5 00
+				];
+				oplus,dsi-panel-spr-on-command = [
+					39 00 00 40 00 00 04 FF 5A A5 07
+					39 00 00 40 00 00 03 8B 11 E0
+					39 00 00 40 00 00 04 FF 5A A5 14
+					15 00 00 40 00 00 02 82 00
+					39 00 00 00 00 00 04 FF 5A A5 00
+				];
+				oplus,dsi-panel-spr-off-command = [
+					39 00 00 40 00 00 04 FF 5A A5 07
+					39 00 00 40 00 00 03 8B 11 A0
+					39 00 00 40 00 00 04 FF 5A A5 14
+					15 00 00 40 00 00 02 82 01
+					39 00 00 00 00 00 04 FF 5A A5 00
+				];
+
+				oplus,dsi-off-command-state = "dsi_lp_mode";
+				oplus,dsi-set-backlight-command-state = "dsi_hs_mode";
+				oplus,dsi-aod-on-command-state = "dsi_ls_mode";
+				oplus,dsi-aod-high-mode-command-state = "dsi_ls_mode";
+				oplus,dsi-aod-low-mode-command-state = "dsi_ls_mode";
+				oplus,dsi-aod-off-compensation-command-state = "dsi_ls_mode";
+				oplus,dsi-lhbm-pressed-icon-on-command-state = "dsi_hs_mode";
+				oplus,dsi-lhbm-pressed-icon-off-command-state = "dsi_hs_mode";
+				oplus,dsi-lhbm-pressed-icon-gamma-command-state = "dsi_hs_mode";
+				oplus,dsi-lhbm-pressed-icon-grayscale-command-state = "dsi_hs_mode";
+				oplus,dsi-switch-hbm-apl-on-command-state = "dsi_hs_mode";
+				oplus,dsi-switch-hbm-apl-off-command-state = "dsi_hs_mode";
+				oplus,dsi-set-seed-vivid-command-state = "dsi_hs_mode";
+				oplus,dsi-set-seed-expert-command-state = "dsi_hs_mode";
+				oplus,dsi-set-seed-natural-command-state = "dsi_hs_mode";
+				oplus,dsi-set-uir-seed-vivid-command-state = "dsi_hs_mode";
+				oplus,dsi-set-uir-seed-expert-command-state = "dsi_hs_mode";
+				oplus,dsi-set-uir-seed-natural-command-state = "dsi_hs_mode";
+				oplus,dsi-panel-spr-on-command-state = "dsi_hs_mode";
+				oplus,dsi-panel-spr-off-command-state = "dsi_hs_mode";

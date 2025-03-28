@@ -1,0 +1,127 @@
+/* Copyright (c) 2018, The Linux Foundation. All rights reserved.
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License version 2 and
+ * only version 2 as published by the Free Software Foundation.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ */
+
+&accdet {
+	headset-three-key-threshold = <0 82 170 306>;
+	//#else
+	//headset-three-key-threshold = <0 80 220 400>;
+	//#endif
+	// add for supporting type-c headphone detect bypass
+	headset-eint0-disable = <1>;
+};
+&pio {
+	typec_switch_hs_det: typec_switchs_hs_det {
+		pins_cmd_dat {
+			pinmux = <PINMUX_GPIO113__FUNC_GPIO113>;
+			slew-rate = <1>;  /*direction 0:in, 1:out*/
+			output-high;
+		};
+	};
+};
+&i2c6 {
+	clock-frequency = <400000>;
+	scl-gpio-id = <36>;
+	sda-gpio-id = <37>;
+	was4783: was4783@42 {
+		 compatible = "oplus,typec-switch-i2c";
+		 reg = <0x42>;
+		 pinctrl-names = "default";
+		 pinctrl-0 = <&typec_switch_hs_det>;
+		 oplus,hs-det-gpio = <&pio 113 0>;
+		 oplus,hp-bypass = <1>;
+		 status = "okay";
+	};
+	sipa_i2c_L: sipa_i2c@6c{
+		compatible = "si,sia91xx-i2c";
+		#sound-dai-cells = <0>;
+		reg = <0x6c>;
+		si,sipa-dev = <&si_pa_L>;
+		status = "okay";
+	};
+
+	sipa_i2c_R: sipa_i2c@6d{
+		compatible = "si,sia91xx-i2c";
+		#sound-dai-cells = <0>;
+		reg = <0x6d>;
+		si,sipa-dev = <&si_pa_R>;
+		status = "okay";
+	};
+};
+
+//#ifdef OPLUS_FEATURE_AUDIODRIVER
+//add for type-c headset and si smartpa
+//oplus extend audio
+&audio_extend {
+	//for sipa speaker
+	oplus,speaker-vendor = "sipa";
+	oplus,speaker-i2s-id = <3>;
+	oplus,speaker-i2s-id-in = <0>;
+	oplus,speaker-codec-name = "sipa_i2c.6-006c","sipa_i2c.6-006d";
+	oplus,speaker-codec-dai-name = "sia91xx-aif-6-6c","sia91xx-aif-6-6d";
+	oplus,spk-i2s-index = <3 9>;
+};
+
+//#endif /* OPLUS_FEATURE_AUDIODRIVER */
+&pio {
+	sia91xx_gpio_L: sia91xx_gpio_L {
+		pins_cmd_dat {
+			pinmux = <PINMUX_GPIO111__FUNC_GPIO111>;
+			slew-rate = <1>;
+			bias-disable;
+		};
+	};
+
+	sia91xx_gpio_R: sia91xx_gpio_R {
+		pins_cmd_dat {
+			pinmux = <PINMUX_GPIO107__FUNC_GPIO107>;
+			slew-rate = <1>;
+			bias-disable;
+		};
+	};
+};
+
+&si_pa_L {
+	compatible = "si,sia91xx";
+	si,si_pa_type = "sia9175";
+	si,si_pa_reset = <&pio 111 0>;
+	pinctrl-names = "si_pa_gpio";
+	pinctrl-0 = <&sia91xx_gpio_L>;
+	si,si_pa_disable_pin = <0>;
+	sipa_min_range = <5000>;
+	sipa_max_range = <7800>;
+
+	channel_num = <0>;
+};
+
+&si_pa_R {
+	compatible = "si,sia91xx";
+	si,si_pa_type = "sia9175";
+	si,si_pa_reset = <&pio 107 0>;
+	pinctrl-names = "si_pa_gpio";
+	pinctrl-0 = <&sia91xx_gpio_R>;
+	si,si_pa_disable_pin = <0>;
+	sipa_min_range = <5000>;
+	sipa_max_range = <7800>;
+
+	channel_num = <1>;
+};
+
+&sound {
+	si,sia81xx-max-num = <2>;
+	si,sia81xx-aux-devs = <&sipa_i2c_L>, <&sipa_i2c_R>;
+	si,sia81xx-aux-devs-prefix = "SpkrLeft", "SpkrRight";
+	mediatek,speaker-codec {
+		sound-dai = <&sipa_i2c_L>, <&sipa_i2c_R>;
+	};
+
+};
+

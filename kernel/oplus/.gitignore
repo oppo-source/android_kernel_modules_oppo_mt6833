@@ -1,0 +1,5 @@
+prebuild/
+dts_check/
+tools/local_system_dlkm_image_info.txt
+tools/local_vendor_dlkm_image_info.txt
+bazel/oplus_platform.bzl

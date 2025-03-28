@@ -1,0 +1,282 @@
+// SPDX-License-Identifier: GPL-2.0
+/* Copyright (c) 2023 MediaTek Inc. */
+#include <dt-bindings/clock/mt6991-clk.h>
+#include <dt-bindings/thermal/thermal.h>
+
+&mt6373_adc {
+	vin3_100k {
+		channel = <AUXADC_VIN3>;
+		pures = <ADC_PURES_100K>;
+	};
+};
+
+&soc {
+	oledntc: oledntc {
+		compatible = "generic-adc-thermal";
+		#thermal-sensor-cells = <0>;
+		io-channels = <&mt6373_adc (ADC_PURES_100K_MASK | AUXADC_VIN3)>;
+		io-channel-names = "sensor-channel";
+		temperature-lookup-table =
+			<(-40000) 1799>,
+			<(-39000) 1796>,
+			<(-38000) 1793>,
+			<(-37000) 1790>,
+			<(-36000) 1786>,
+			<(-35000) 1782>,
+			<(-34000) 1778>,
+			<(-33000) 1774>,
+			<(-32000) 1770>,
+			<(-31000) 1765>,
+			<(-30000) 1760>,
+			<(-29000) 1755>,
+			<(-28000) 1749>,
+			<(-27000) 1743>,
+			<(-26000) 1737>,
+			<(-25000) 1731>,
+			<(-24000) 1724>,
+			<(-23000) 1717>,
+			<(-22000) 1709>,
+			<(-21000) 1701>,
+			<(-20000) 1693>,
+			<(-19000) 1684>,
+			<(-18000) 1675>,
+			<(-17000) 1666>,
+			<(-16000) 1656>,
+			<(-15000) 1646>,
+			<(-14000) 1635>,
+			<(-13000) 1624>,
+			<(-12000) 1612>,
+			<(-11000) 1600>,
+			<(-10000) 1588>,
+			<(-9000) 1575>,
+			<(-8000) 1562>,
+			<(-7000) 1548>,
+			<(-6000) 1533>,
+			<(-5000) 1519>,
+			<(-4000) 1503>,
+			<(-3000) 1488>,
+			<(-2000) 1472>,
+			<(-1000) 1455>,
+			<0 1438>,
+			<1000 1421>,
+			<2000 1403>,
+			<3000 1385>,
+			<4000 1366>,
+			<5000 1347>,
+			<6000 1328>,
+			<7000 1308>,
+			<8000 1289>,
+			<9000 1268>,
+			<10000 1248>,
+			<11000 1227>,
+			<12000 1206>,
+			<13000 1185>,
+			<14000 1164>,
+			<15000 1142>,
+			<16000 1120>,
+			<17000 1099>,
+			<18000 1077>,
+			<19000 1055>,
+			<20000 1033>,
+			<21000 1011>,
+			<22000 990>,
+			<23000 968>,
+			<24000 946>,
+			<25000 925>,
+			<26000 903>,
+			<27000 882>,
+			<28000 861>,
+			<29000 840>,
+			<30000 819>,
+			<31000 799>,
+			<32000 778>,
+			<33000 758>,
+			<34000 739>,
+			<35000 719>,
+			<36000 700>,
+			<37000 681>,
+			<38000 663>,
+			<39000 645>,
+			<40000 627>,
+			<41000 609>,
+			<42000 592>,
+			<43000 576>,
+			<44000 559>,
+			<45000 543>,
+			<46000 528>,
+			<47000 512>,
+			<48000 498>,
+			<49000 483>,
+			<50000 469>,
+			<51000 455>,
+			<52000 442>,
+			<53000 429>,
+			<54000 416>,
+			<55000 404>,
+			<56000 392>,
+			<57000 380>,
+			<58000 368>,
+			<59000 357>,
+			<60000 347>,
+			<61000 336>,
+			<62000 326>,
+			<63000 317>,
+			<64000 307>,
+			<65000 298>,
+			<66000 289>,
+			<67000 280>,
+			<68000 272>,
+			<69000 264>,
+			<70000 256>,
+			<71000 249>,
+			<72000 241>,
+			<73000 234>,
+			<74000 227>,
+			<75000 221>,
+			<76000 214>,
+			<77000 208>,
+			<78000 202>,
+			<79000 196>,
+			<80000 191>,
+			<81000 185>,
+			<82000 180>,
+			<83000 175>,
+			<84000 170>,
+			<85000 165>,
+			<86000 161>,
+			<87000 156>,
+			<88000 152>,
+			<89000 148>,
+			<90000 144>,
+			<91000 140>,
+			<92000 136>,
+			<93000 133>,
+			<94000 129>,
+			<95000 126>,
+			<96000 122>,
+			<97000 119>,
+			<98000 116>,
+			<99000 113>,
+			<100000 110>,
+			<101000 108>,
+			<102000 105>,
+			<103000 102>,
+			<104000 100>,
+			<105000 97>,
+			<106000 95>,
+			<107000 93>,
+			<108000 91>,
+			<109000 89>,
+			<110000 87>,
+			<111000 85>,
+			<112000 83>,
+			<113000 81>,
+			<114000 79>,
+			<115000 77>,
+			<116000 76>,
+			<117000 74>,
+			<118000 72>,
+			<119000 71>,
+			<120000 69>,
+			<121000 68>,
+			<122000 67>,
+			<123000 65>,
+			<124000 64>,
+			<125000 63>;
+	};
+	//#ifdef OPLUS_FEATURE_POWER_THERMAL
+	shell_front {
+		compatible = "oplus,shell-temp";
+	};
+
+	shell_frame {
+		compatible = "oplus,shell-temp";
+	};
+
+	shell_back {
+		compatible = "oplus,shell-temp";
+	};
+	//#endif /* OPLUS_FEATURE_POWER_THERMAL */
+	//#ifdef CONFIG_OPLUS_IPA
+	oplus_ipa: ipa {
+		compatible = "oplus,oplus-thermal";
+		thermal_name = "oplus_thermal_ipa";
+		id = <0>;
+		thermal_type = <0>;
+		#thermal-sensor-cells = <0>;
+		use-ipa-thermal;
+		use-power-budget = <0>;
+		polling_delay_on = <100>;
+		polling_delay_off = <3000>;
+		k_po = <1>;
+		k_pu = <1>;
+		k_i = <1>;
+		k_d = <0>;
+		i_max = <2>;
+		integral_cutoff = <10>;
+		sustainable_power = <9999>;
+		thermal_work_affinity = "0-8";
+		cdev_min_power = <466 329 272 0 0 0>;
+		use-thermalcontrol-limit = <1>;
+		clt_state_limit = <0 0 0 0 0 0>;
+	};
+	//#endif /* CONFIG_OPLUS_IPA */
+};
+
+&thermal_zones {
+	oled_temp: oled_temp {
+		polling-delay = <0>; /* milliseconds */
+		polling-delay-passive = <0>; /* milliseconds */
+		thermal-sensors = <&oledntc>;
+		trips {
+			oled_temp_crit: oled_temp-crit {
+				temperature = <120000>;
+				hysteresis = <2000>;
+				type = "passive";
+			};
+		};
+	};
+	oplus_thermal_ipa {
+		thermal-governor = "user_space";
+		polling-delay-passive = <0>;
+		polling-delay = <0>;
+		thermal-sensors = <&oplus_ipa>;
+		trips {
+			ipa_switch_on: ipa-switch-on {
+				temperature = <30000>;
+				hysteresis = <2000>;
+				type = "active";
+			};
+			ipa_control_temp: ipa-control-temp {
+				temperature = <53000>;
+				hysteresis = <2000>;
+				type = "passive";
+			};
+			ipa_hot: ipa-hot {
+				temperature = <115000>;
+				hysteresis = <3000>;
+				type = "hot";
+			};
+		};
+		cooling-maps {
+			map0 {
+				trip = <&ipa_control_temp>;
+				contribution = <1024>;
+				cooling-device = <&cpu0 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>;
+				#cooling-cells = <2>;
+			};
+			map1 {
+				trip = <&ipa_control_temp>;
+				contribution = <1024>;
+				cooling-device = <&cpu4 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>;
+				#cooling-cells = <2>;
+			};
+			map2 {
+				trip = <&ipa_control_temp>;
+				contribution = <512>;
+				cooling-device = <&cpu7 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>;
+				#cooling-cells = <2>;
+			};
+		};
+	};
+};

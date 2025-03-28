@@ -1,0 +1,334 @@
+				oplus,dsi-off-command = [
+					39 00 00 00 0A 00 01 28
+					39 00 00 00 78 00 01 10
+				];
+				oplus,dsi-set-backlight-command = [
+					39 00 00 00 00 00 03 51 00 00
+				];
+				oplus,dsi-aod-on-command = [
+					39 00 00 40 00 00 02 39 00
+					39 00 00 40 00 00 02 6F 04
+					39 00 00 00 00 00 03 51 03 FF
+				];
+				oplus,dsi-aod-high-mode-command = [
+					39 00 00 40 00 00 02 6F 04
+					39 00 00 00 00 00 03 51 03 FF
+				];
+				oplus,dsi-aod-low-mode-command = [
+					39 00 00 40 00 00 02 6F 04
+					39 00 00 00 00 00 03 51 01 FF
+				];
+				oplus,dsi-lhbm-pressed-icon-gamma-command = [
+				];
+				oplus,dsi-lhbm-pressed-icon-grayscale-command = [
+					39 00 00 40 00 00 06 F0 55 AA 52 08 08
+					39 00 00 40 00 00 02 6F 4A
+					39 00 00 00 00 00 03 B8 00 00
+				];
+				oplus,dsi-lhbm-pressed-icon-on-command = [
+					39 00 00 40 00 00 0D A9 02 00 DF 31 31 06 01 00 87 00 00 05
+					39 00 00 40 00 00 06 F0 55 AA 52 08 04
+					39 00 00 40 00 00 02 CB 37
+					39 00 00 00 00 00 02 8B 10
+				];
+				oplus,dsi-lhbm-pressed-icon-on-pwm-command = [
+					39 00 00 40 00 00 0D A9 02 00 DF 31 31 16 01 00 87 00 00 25
+					39 00 00 40 00 00 06 F0 55 AA 52 08 04
+					39 00 00 40 00 00 02 CB 37
+					39 00 00 00 00 00 02 8B 10
+				];
+				oplus,dsi-lhbm-pressed-icon-off-command = [
+					39 00 00 40 00 00 02 87 20
+					39 00 00 40 00 00 06 F0 55 AA 52 08 04
+					39 00 00 40 00 00 02 CB 27
+					39 00 00 00 00 00 02 8B 00
+				];
+				oplus,dsi-panel-spr-on-command = [
+					39 00 00 40 00 00 06 F0 55 AA 52 08 07
+					15 00 00 40 00 00 02 B0 84
+					39 00 00 40 00 00 07 B1 08 18 00 18 08 00
+					15 00 00 40 00 00 02 03 10
+					39 00 00 40 00 00 06 F0 55 AA 52 08 01
+					15 00 00 40 00 00 02 DD 5F
+					39 00 00 00 00 00 26 A9 01 00 A2 00 17 01 02 03 DE 08 0E 00 01 34 25 31 04 25 00 00 00 00 00 00 00 00 00 00 00 01 00 A2 18 1A 00 00 00
+
+				];
+				oplus,dsi-panel-spr-off-command = [
+					39 00 00 40 00 00 06 F0 55 AA 52 08 07
+					15 00 00 40 00 00 02 B0 44
+					39 00 00 40 00 00 07 B1 60 60 00 60 60 00
+					15 00 00 40 00 00 02 03 00
+					39 00 00 40 00 00 06 F0 55 AA 52 08 01
+					15 00 00 40 00 00 02 DD 4F
+					39 00 00 00 00 00 26 A9 01 00 A2 00 17 01 02 03 DE 08 0E 00 10 34 25 30 14 25 00 00 00 00 00 00 00 00 00 00 00 01 00 A2 18 1A 00 00 00
+				];
+				oplus,dsi-panel-emduty-dbv-mode0-command = [
+					/* DBV <= 699 */
+					39 00 00 40 00 00 06 F0 55 AA 52 08 00
+					39 00 00 40 00 00 02 6F 01
+					39 00 00 40 00 00 02 B2 40
+					39 00 00 40 00 00 02 6F 31
+					39 00 00 40 00 00 03 C0 01 20
+					39 00 00 40 00 00 02 6F 33
+					39 00 00 40 00 00 04 C0 03 33 00
+					39 00 00 40 00 00 06 F0 55 AA 52 08 04
+					39 00 00 40 00 00 02 6F 01
+					39 00 00 40 00 00 06 CB 08 10 1E 78 E1
+					39 00 00 40 00 00 02 6F 06
+					39 00 00 40 00 00 0A CB 01 08 26 23 24 05 34 D5 81
+					39 00 00 40 00 00 06 F0 55 AA 52 08 00   //EM code
+					39 00 00 40 00 00 02 6F 0D
+					39 00 00 40 00 00 06 B3 25 03 05 03 06
+					39 00 00 40 00 00 02 6F 3C
+					39 00 00 00 00 00 07 B4 0B 8C 06 60 05 60
+				];
+				oplus,dsi-panel-emduty-dbv-mode1-command = [
+					/* 700 <= DBV <= 772 */
+					39 00 00 40 00 00 06 F0 55 AA 52 08 00
+					39 00 00 40 00 00 02 6F 01
+					39 00 00 40 00 00 02 B2 40
+					39 00 00 40 00 00 02 6F 31
+					39 00 00 40 00 00 03 C0 01 20
+					39 00 00 40 00 00 02 6F 33
+					39 00 00 40 00 00 04 C0 03 33 00
+					39 00 00 40 00 00 06 F0 55 AA 52 08 04
+					39 00 00 40 00 00 02 6F 01
+					39 00 00 40 00 00 06 CB 08 10 1E 78 E1
+					39 00 00 40 00 00 02 6F 06
+					39 00 00 40 00 00 0A CB 01 08 26 23 24 05 34 D5 81
+					39 00 00 40 00 00 06 F0 55 AA 52 08 00   //EM code
+					39 00 00 40 00 00 02 6F 0D
+					39 00 00 40 00 00 06 B3 25 03 05 03 06
+					39 00 00 40 00 00 02 6F 3C
+					39 00 00 00 00 00 07 B4 0C F0 05 87 05 60
+				];
+				oplus,dsi-panel-emduty-dbv-mode2-command = [
+					/* 773 <= DBV <= 843 */
+					39 00 00 40 00 00 06 F0 55 AA 52 08 00
+					39 00 00 40 00 00 02 6F 01
+					39 00 00 40 00 00 02 B2 40
+					39 00 00 40 00 00 02 6F 31
+					39 00 00 40 00 00 03 C0 01 20
+					39 00 00 40 00 00 02 6F 33
+					39 00 00 40 00 00 04 C0 03 33 00
+					39 00 00 40 00 00 06 F0 55 AA 52 08 04
+					39 00 00 40 00 00 02 6F 01
+					39 00 00 40 00 00 06 CB 08 10 1E 78 E1
+					39 00 00 40 00 00 02 6F 06
+					39 00 00 40 00 00 0A CB 01 08 26 23 24 05 34 D5 81
+					39 00 00 40 00 00 06 F0 55 AA 52 08 00   //EM code
+					39 00 00 40 00 00 02 6F 0D
+					39 00 00 40 00 00 06 B3 25 03 05 03 06
+					39 00 00 40 00 00 02 6F 3C
+					39 00 00 00 00 00 07 B4 0B 8C 05 87 05 30
+				];
+				oplus,dsi-panel-emduty-dbv-mode3-command = [
+					/* 844 <= DBV <= 900 */
+					39 00 00 40 00 00 06 F0 55 AA 52 08 00
+					39 00 00 40 00 00 02 6F 01
+					39 00 00 40 00 00 02 B2 40
+					39 00 00 40 00 00 02 6F 31
+					39 00 00 40 00 00 03 C0 01 20
+					39 00 00 40 00 00 02 6F 33
+					39 00 00 40 00 00 04 C0 03 33 00
+					39 00 00 40 00 00 06 F0 55 AA 52 08 04
+					39 00 00 40 00 00 02 6F 01
+					39 00 00 40 00 00 06 CB 08 10 1E 78 E1
+					39 00 00 40 00 00 02 6F 06
+					39 00 00 40 00 00 0A CB 01 08 26 23 24 05 34 D5 81
+					39 00 00 40 00 00 06 F0 55 AA 52 08 00   //EM code
+					39 00 00 40 00 00 02 6F 0D
+					39 00 00 40 00 00 06 B3 25 03 05 03 06
+					39 00 00 40 00 00 02 6F 3C
+					39 00 00 00 00 00 07 B4 0B 8C 05 87 04 C0
+				];
+				oplus,dsi-panel-emduty-dbv-mode4-command = [
+					/* 901 <= DBV <= 929 */
+					39 00 00 40 00 00 06 F0 55 AA 52 08 00
+					39 00 00 40 00 00 02 6F 01
+					39 00 00 40 00 00 02 B2 40
+					39 00 00 40 00 00 02 6F 31
+					39 00 00 40 00 00 03 C0 01 20
+					39 00 00 40 00 00 02 6F 33
+					39 00 00 40 00 00 04 C0 03 33 00
+					39 00 00 40 00 00 06 F0 55 AA 52 08 04
+					39 00 00 40 00 00 02 6F 01
+					39 00 00 40 00 00 06 CB 08 10 1E 78 E1
+					39 00 00 40 00 00 02 6F 06
+					39 00 00 40 00 00 0A CB 01 08 26 23 24 05 34 D5 81
+					39 00 00 40 00 00 06 F0 55 AA 52 08 00   //EM code
+					39 00 00 40 00 00 02 6F 0D
+					39 00 00 40 00 00 06 B3 25 03 05 03 06
+					39 00 00 40 00 00 02 6F 3C
+					39 00 00 00 00 00 07 B4 0B 8C 05 87 04 87
+				];
+				oplus,dsi-panel-emduty-dbv-mode5-command = [
+					/* 930 <= DBV <= 1153 */
+					39 00 00 40 00 00 06 F0 55 AA 52 08 00
+					39 00 00 40 00 00 02 6F 01
+					39 00 00 40 00 00 02 B2 40
+					39 00 00 40 00 00 02 6F 31
+					39 00 00 40 00 00 03 C0 01 20
+					39 00 00 40 00 00 02 6F 33
+					39 00 00 40 00 00 04 C0 03 33 00
+					39 00 00 40 00 00 06 F0 55 AA 52 08 04
+					39 00 00 40 00 00 02 6F 01
+					39 00 00 40 00 00 06 CB 08 10 1E 78 E1
+					39 00 00 40 00 00 02 6F 06
+					39 00 00 40 00 00 0A CB 01 08 26 23 24 05 34 D5 81
+					39 00 00 40 00 00 06 F0 55 AA 52 08 00   //EM code
+					39 00 00 40 00 00 02 6F 0D
+					39 00 00 40 00 00 06 B3 25 03 05 03 06
+					39 00 00 40 00 00 02 6F 3C
+					39 00 00 00 00 00 07 B4 0B 8C 05 87 04 17
+				];
+
+				oplus,dsi-panel-emduty-dbv-mode6-command = [
+					/* 1153 < DBV <= 4094 */
+					39 00 00 40 00 00 06 F0 55 AA 52 08 00
+					39 00 00 40 00 00 02 6F 01
+					39 00 00 40 00 00 02 B2 40
+					39 00 00 40 00 00 02 6F 31
+					39 00 00 40 00 00 03 C0 67 80
+					39 00 00 40 00 00 02 6F 33
+					39 00 00 40 00 00 04 C0 04 44 00
+					39 00 00 40 00 00 06 F0 55 AA 52 08 04
+					39 00 00 40 00 00 02 6F 01
+					39 00 00 40 00 00 06 CB 03 08 1E 78 E1
+					39 00 00 40 00 00 02 6F 06
+					39 00 00 00 00 00 0A CB 46 82 80 9C 80 1C DF BB FE
+				];
+				oplus,dsi-panel-emduty-dbv-max-command = [
+					/* DBV == 4095 */
+					39 00 00 40 00 00 06 F0 55 AA 52 08 00
+					39 00 00 40 00 00 02 6F 01
+					39 00 00 40 00 00 02 B2 50
+					39 00 00 40 00 00 02 6F 31
+					39 00 00 40 00 00 03 C0 55 50
+					39 00 00 40 00 00 02 6F 33
+					39 00 00 40 00 00 04 C0 04 44 00
+					39 00 00 40 00 00 06 F0 55 AA 52 08 04
+					39 00 00 40 00 00 02 6F 01
+					39 00 00 40 00 00 06 CB 03 08 1E 78 E1
+					39 00 00 40 00 00 02 6F 06
+					39 00 00 00 00 00 0A CB 88 71 72 88 73 74 88 75 76
+				];
+				oplus,dsi-panel-demura-dbv-mode0-command = [
+					/* DBV <= 1153 */
+					39 00 00 40 00 00 06 F0 55 AA 52 08 00
+					39 00 00 40 00 00 02 6F 01
+					39 00 00 40 00 00 02 B2 40
+					39 00 00 40 00 00 02 6F 31
+					39 00 00 40 00 00 03 C0 01 20
+					39 00 00 40 00 00 02 6F 33
+					39 00 00 40 00 00 04 C0 03 33 00
+					39 00 00 40 00 00 06 F0 55 AA 52 08 04
+					39 00 00 40 00 00 02 6F 01
+					39 00 00 40 00 00 06 CB 08 10 1E 78 E1
+					39 00 00 40 00 00 02 6F 06
+					39 00 00 00 00 00 0A CB 01 08 26 23 24 05 34 D5 81
+				];
+				oplus,dsi-panel-demura-dbv-mode1-command = [
+					/* 1153 < DBV <= 4094 */
+					39 00 00 40 00 00 06 F0 55 AA 52 08 00
+					39 00 00 40 00 00 02 6F 01
+					39 00 00 40 00 00 02 B2 40
+					39 00 00 40 00 00 02 6F 31
+					39 00 00 40 00 00 03 C0 67 80
+					39 00 00 40 00 00 02 6F 33
+					39 00 00 40 00 00 04 C0 04 44 00
+					39 00 00 40 00 00 06 F0 55 AA 52 08 04
+					39 00 00 40 00 00 02 6F 01
+					39 00 00 40 00 00 06 CB 03 08 1E 78 E1
+					39 00 00 40 00 00 02 6F 06
+					39 00 00 00 00 00 0A CB 46 82 80 9C 80 1C DF BB FE
+				];
+				oplus,dsi-panel-demura-dbv-mode2-command = [
+					/* DBV == 4095 */
+					39 00 00 40 00 00 06 F0 55 AA 52 08 00
+					39 00 00 40 00 00 02 6F 01
+					39 00 00 40 00 00 02 B2 50
+					39 00 00 40 00 00 02 6F 31
+					39 00 00 40 00 00 03 C0 55 50
+					39 00 00 40 00 00 02 6F 33
+					39 00 00 40 00 00 04 C0 04 44 00
+					39 00 00 40 00 00 06 F0 55 AA 52 08 04
+					39 00 00 40 00 00 02 6F 01
+					39 00 00 40 00 00 06 CB 03 08 1E 78 E1
+					39 00 00 40 00 00 02 6F 06
+					39 00 00 00 00 00 0A CB 88 71 72 88 73 74 88 75 76
+				];
+				oplus,dsi-set-seed-natural-command = [
+					39 00 00 40 00 00 06 F0 55 AA 52 08 08
+					39 00 00 40 00 00 02 BE 03
+					39 00 00 40 00 00 05 FF AA 55 A5 81
+					39 00 00 40 00 00 02 6F 0B
+					39 00 00 40 00 00 02 FD 04
+					39 00 00 00 00 00 02 5F 04
+				];
+				oplus,dsi-set-seed-vivid-command = [
+					39 00 00 40 00 00 06 F0 55 AA 52 08 08
+					39 00 00 40 00 00 02 BE 03
+					39 00 00 40 00 00 05 FF AA 55 A5 81
+					39 00 00 40 00 00 02 6F 0B
+					39 00 00 40 00 00 02 FD 04
+					39 00 00 00 00 00 02 5F 05
+				];
+				oplus,dsi-set-seed-expert-command = [
+					39 00 00 40 00 00 06 F0 55 AA 52 08 08
+					39 00 00 40 00 00 02 BE 00
+					39 00 00 40 00 00 05 FF AA 55 A5 81
+					39 00 00 40 00 00 02 6F 0B
+					39 00 00 40 00 00 02 FD 04
+					39 00 00 00 00 00 02 5F 00
+				];
+				oplus,dsi-switch-hbm-apl-off-command = [
+					39 00 00 00 00 00 03 51 10 ED
+				];
+				oplus,dsi-switch-hbm-apl-on-command = [
+					39 00 00 00 00 00 03 51 0F FE
+				];
+				oplus,dsi-panel-gamma-compensation-page2-command = [
+					39 00 00 40 00 00 06 F0 55 AA 52 08 02
+					15 00 00 40 00 00 02 BF 08
+					15 00 00 00 00 00 02 6F 0C
+				];
+				oplus,dsi-panel-gamma-compensation-command = [
+					39 00 00 40 00 00 06 F0 55 AA 52 08 02
+					39 00 00 00 00 00 07 D1 24 FF 22 00 29 FF
+				];
+				oplus,dsi-off-command-state = "dsi_lp_mode";
+				oplus,dsi-set-backlight-command-state = "dsi_hs_mode";
+				oplus,dsi-aod-on-command-state = "dsi_ls_mode";
+				oplus,dsi-aod-high-mode-command-state = "dsi_ls_mode";
+				oplus,dsi-aod-low-mode-command-state = "dsi_ls_mode";
+				oplus,dsi-lhbm-pressed-icon-on-command-state = "dsi_hs_mode";
+				oplus,dsi-lhbm-pressed-icon-on-pwm-command-state = "dsi_hs_mode";
+				oplus,dsi-lhbm-pressed-icon-off-command-state = "dsi_hs_mode";
+				oplus,dsi-lhbm-pressed-icon-gamma-command-state = "dsi_hs_mode";
+				oplus,dsi-lhbm-pressed-icon-grayscale-command-state = "dsi_hs_mode";
+				oplus,dsi-panel-spr-on-command-state = "dsi_hs_mode";
+				oplus,dsi-panel-spr-off-command-state = "dsi_hs_mode";
+				oplus,dsi-panel-emduty-dbv-mode0-command-state = "dsi_hs_mode";
+				oplus,dsi-panel-emduty-dbv-mode1-command-state = "dsi_hs_mode";
+				oplus,dsi-panel-emduty-dbv-mode2-command-state = "dsi_hs_mode";
+				oplus,dsi-panel-emduty-dbv-mode3-command-state = "dsi_hs_mode";
+				oplus,dsi-panel-emduty-dbv-mode4-command-state = "dsi_hs_mode";
+				oplus,dsi-panel-emduty-dbv-mode5-command-state = "dsi_hs_mode";
+				oplus,dsi-panel-emduty-dbv-mode6-command-state = "dsi_hs_mode";
+				oplus,dsi-panel-emduty-dbv-max-command-state = "dsi_hs_mode";
+				oplus,dsi-panel-demura-dbv-mode0-command-state = "dsi_hs_mode";
+				oplus,dsi-panel-demura-dbv-mode1-command-state = "dsi_hs_mode";
+				oplus,dsi-panel-demura-dbv-mode2-command-state = "dsi_hs_mode";
+				oplus,dsi-panel-demura-dbv-mode3-command-state = "dsi_hs_mode";
+				oplus,dsi-panel-demura-dbv-mode4-command-state = "dsi_hs_mode";
+				oplus,dsi-panel-demura-dbv-mode5-command-state = "dsi_hs_mode";
+				oplus,dsi-panel-demura-dbv-mode6-command-state = "dsi_hs_mode";
+				oplus,dsi-panel-demura-dbv-max-command-state = "dsi_hs_mode";
+				oplus,dsi-set-seed-natural-command-state = "dsi_hs_mode";
+				oplus,dsi-set-seed-vivid-command-state = "dsi_hs_mode";
+				oplus,dsi-set-seed-expert-command-state = "dsi_hs_mode";
+				oplus,dsi-switch-hbm-apl-off-command-state = "dsi_hs_mode";
+				oplus,dsi-switch-hbm-apl-on-command-state = "dsi_hs_mode";
+				oplus,dsi-panel-gamma-compensation-page2-command-state = "dsi_hs_mode";
+				oplus,dsi-panel-gamma-compensation-command-state = "dsi_hs_mode";

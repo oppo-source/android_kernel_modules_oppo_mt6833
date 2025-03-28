@@ -1,0 +1,77 @@
+// SPDX-License-Identifier: GPL-2.0-only
+/*
+* Copyright (C) 2021-2020 Oplus. All rights reserved.
+*/
+#include <dt-bindings/iio/mt635x-auxadc.h>
+#include <dt-bindings/pinctrl/mt6991-pinfunc.h>
+#include <dt-bindings/pinctrl/mt65xx.h>
+
+/* charge start */
+&regulator_vibrator{
+	status = "disabled";
+};
+
+&ssusb {
+	maximum-speed = "super-speed";
+};
+
+&u2port0 {
+	mediatek,eye-vrt = <7>;
+	mediatek,eye-term = <7>;
+	mediatek,rev6 = <3>;
+	mediatek,eye-vrt-host = <7>;
+	mediatek,eye-term-host = <7>;
+	mediatek,rev6-host = <3>;
+	mediatek,discth = <0xb>;
+};
+
+&i2c5 {
+	status = "okay";
+	clock-frequency = <1000000>;
+
+	// AWINIC AW8697 Haptic
+	aw8697_haptic@5A {
+		status = "okay";
+		compatible = "awinic,aw8697_haptic";
+		reg = <0x5A>;
+		reset-gpio = <&pio 18 0x00>;
+		irq-gpio = <&pio 14 0x00>;
+		qcom,device_id = <809>;
+		oplus,aw86927_boost_voltage = <81>; /* 0x51 */
+		bus_id-lk = <0>;
+
+		haptic_hv_vmax = /bits/ 8 < 0x28 0x28 0x28 0x28 0x28 0x28 0x28 0x28 0x2A 0x31 0x38 0x3F 0x46 0x4C 0x51 0x58 0x58 >;
+		haptic_hv_gain = /bits/ 8 < 0x40 0x49 0x51 0x5A 0x62 0x6B 0x73 0x7C 0x80 0x80 0x80 0x80 0x80 0x80 0x80 0x80 0x80 >;
+
+		pinctrl-names = "default";
+		pinctrl-0 = <&aw_irq_gpio_default>;
+		oplus,livetap_support;
+		oplus,drv2_time = /bits/ 8 <0x30>;
+		oplus,auto_break_mode_support;
+		oplus,d2s_gain = /bits/ 8 <0x7>;
+		oplus,brk_time = /bits/ 8 <0x6>;
+	};
+};
+
+&i2c5 {
+	pinctrl-names = "default";
+	pinctrl-0 = <&i2c5_mode_default>;
+};
+
+&pio{
+	aw_irq_gpio_default: aw_irq_gpio_default {
+		pins_cmd_dat {
+			pinmux = <PINMUX_GPIO14__FUNC_GPIO14>;
+			input-enable;
+			bias-pull-up;
+		};
+	};
+
+	i2c5_mode_default: i2c5_mode_default {
+	pins_cmd_dat {
+			pinmux = <PINMUX_GPIO176__FUNC_SCL5>,
+				 <PINMUX_GPIO177__FUNC_SDA5>;
+			bias-pull-up = <MTK_PULL_SET_RSEL_111>;
+		};
+	};
+};

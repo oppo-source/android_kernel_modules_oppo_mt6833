@@ -1,0 +1,210 @@
+&odm {
+	sensor_fb: sensor_fb {
+		compatible = "oplus,sensor-feedback";
+	};
+	consumer_ir_core: consumer_ir_core {
+		compatible = "oplus,kookong_ir_core";
+		status = "okay";
+		vdd-supply = <&mt6373_vmch>;
+		vdd-min-vol = <3000000>;
+		vdd-max-vol = <3000000>;
+		// pinctrl-names = "default";
+		// pinctrl-0 = <&consumer_ir_pwm>;
+	};
+	consumerIr: consumerIr {
+		compatible = "oplus,kookong_ir_pwm";
+		status = "okay";
+		pwm-num = <0>;
+		pwm-dma-mask = <64>;
+	};
+	oplus_sensor:oplus_sensor {
+		compatible = "oplus,sensor-devinfo";
+		als-row-coe = <1000>;
+		/* sensor start */
+		/*
+		enum {
+			LIS3DH,
+			LSM6DS3,
+			BMI160,
+			LIS2HH12,
+			LSM6DSM,
+			BMI2XY,
+			LSM6DSO,
+			ICM4X6XX,
+			ICM4263X,
+			ICM4N607,
+			BMI22X,
+			SC7A20,
+			MC34X9,
+		};
+		*/
+		gsensor_1: gsensor_1 {
+			status = "okay";
+			sensor_name = <5>;//BMI2XY
+			device_name = "bmi2xy";
+			i2c_num = <1>;
+			direction = <0>;
+			eint_num = <7>;
+			gyro_cali_version= <2>;
+			gyro_cali_range =<350>;
+			acc_cali_range= <300 300 300>;
+			sup_range_change = <1>;
+		};
+		/*
+		enum {
+			AKM09911,
+			MMC3530,
+			MMC5603,
+			MXG4300,
+			AKM09918,
+			AKM09919,
+		};
+		*/
+		msensor_1: msensor_1 {
+			status = "okay";
+			sensor_name = <5>;//AKM09919
+			i2c_num = <0>;
+			i2c_addr = <0x0E>;
+			direction = <5>;
+			eint_num = <0>;
+			soft-mag-parameter = <10000 0 0 0 0 0 0 0 10000 0 0 0 0 0 0 0 10000 0>;
+			sup_uncali_raw_mag = <1>;
+		};
+		rear_cct_1: rear_cct_1 {
+			status = "okay";
+			sensor_name = <3>; // TCS3449
+			i2c_num = <2>;
+			i2c_addr = <0x59>;
+			available_sensor = <23>; // bit 0: rear als, bit 1: rear cct, bit 2: rear flicker, bit 3: rear proximity
+			device_name = "tcs3449";
+			cct_coef_Hir = <28073000 1 28853000 0 25804000 1 1703000 0
+							26384000 1 27124000 0 19232000 1 1027000 0
+							10716000 1 8010000 0 31176000 0 365000 1>;
+			cct_coef_Lir = <31772000 0 9486000 1 31860000 0 118193000 1
+							23055000 0 5374000 1 30599000 0 89059000 1
+							13033000 0 7999000 1 65764000 0 77206000 1>;
+			gold_rear_spectrum_3k = <1020 3622 4234 2084 5486 732 1062 2001 5472 506 4363 633 841>; // Z Y X NIR VIS F2 F3 F4 F6 F1 F7 F8 F5 F
+			gold_rear_spectrum_6k = <2400 3621 3270 618 4929 1530 2253 2933 3319 1038 2509 390 931>;
+			coef_index = <4>;
+		};
+		pick_up: pick_up {
+			status = "okay";
+			use-proximity = <1>;
+		};
+		lux_aod: lux_aod {
+			status = "okay";
+			use-proximity = <1>;
+		};
+		alsps_arch: alsps_arch {
+			status = "okay";
+			new-arch-supported = <1>;
+		};
+		cali_arch: cali_arch {
+			status = "okay";
+			new-arch-supported = <1>;
+		};
+		oplus_fusion: oplus_fusion {
+			status = "okay";
+			use_sub_accgyro = <0>;
+		};
+		smart_prox: smart_prox {
+			status = "okay";
+			support_smart_prox = <1>;
+		};
+		ap_timer: ap_timer {
+			status = "okay";
+			support_ap_timer = <0>;
+		};
+		pocket: pocket {
+			status = "okay";
+			support_pocket = <1>;
+			use_sub_accgyro = <0>;
+			need_als = <0>;
+		};
+		lay_detect: lay_detect{
+			status = "okay";
+			max_angel = <90>;
+			min_angel = <30>;
+			lay_in_time = <10>;
+			lay_out_time = <3>;
+		};
+		free_fall: free_fall{
+			status = "okay";
+			static_judge_length = <400>;
+			static_judge_acc_thresh = <1>;
+			freefall_judge_length = <80>;
+			freefall_judge_acc_thresh = <20>;
+			move_judge_length = <60>;
+			move_judge_acc_thresh = <1>;
+			freefall_start_judge_length  = <50>;
+			freefall_start_acc_thresh = <70>;
+			freefall_throw_judge_length = <700>;
+			freefall_throw_acc_thresh = <50>;
+			freefall_end_acc_thresh = <30>;
+			freefall_valid_time_length = <1000>;
+			freefall_peek_time_length = <200>;
+			freefall_peek_acc_thresh = <98>;
+			freefall_material_thresh = <900>;
+			valid_peek_interval_thresh = <10000>;
+		};
+		oplus_measurement: oplus_measurement{
+			status = "okay";
+			support_oplus_measurement = <1>;
+		};
+		shaking: shaking{
+			status = "okay";
+			is_available = <1>;
+			is_sup_s_ois = <1>;
+			is_sup_tele_ois = <0>;
+			is_detect_gyro = <1>;
+
+			ag_para_index = <0>;
+			shaking_cnt = <1>;
+			static_cnt = <3>;
+			shaking_timeout = <60>;
+			shaking_buffer_size = <40>;
+			acc_static_length = <100>;
+			acc_move_threshold = <600>;
+			acc_move_length = <10>;
+		};
+		chop: chop {
+			status = "okay";
+			is_available = <1>;
+			is_sup_chop = <1>;
+
+			acc_static_length = <100>;
+			acc_move_threshold = <600>;
+			acc_move_length = <3>;
+			ax_max = <22>;
+			ax_min = <22>;
+			ax_delta = <80>;
+			ax_peek_cnt = <1>;
+			ax_extra_cnt = <2>;
+			chop_cnt = <2>;
+			chop_between_ms = <250>;
+			chop_timeout_ms = <700>;
+			chop_buffer_size = <10>;
+		};
+		elevator: elevator {
+			status = "okay";
+			sup_accel_rpt = <1>;
+		};
+	};
+/* sensor end */
+};
+/*
+&pio {
+	consumer_ir_pwm: consumer_ir_pwm {
+		pins-cmd-dat {
+			pinmux = <PINMUX_GPIO174__FUNC_PWM_0>;
+			bias-pull-up;
+			input-enable;
+		};
+	};
+};
+*/
+&mt6373_vio28 {
+	regulator-min-microvolt = <3000000>;
+	regulator-max-microvolt = <3000000>;
+	regulator-always-on;
+};
