@@ -216,35 +216,38 @@ static enum IMGSENSOR_RETURN regulator_set(
 	|| is_project(0x216A0) || is_project(22610) || is_project(22705) || is_project(22706) || is_project(21831) || is_project(0x2163B) || is_project(0x2163C) || is_project(0x2163D)
 	|| is_project(21639) || is_project(0x216CD) || is_project(0x216CE) || is_project(22603) || is_project(22604) || is_project(22609)
 	|| is_project(0x2260A) || is_project(0x2260B) || is_project(22669) || is_project(0x2266A) || is_project(0x2266B) || is_project(0x2266C)) {
-		PK_DBG("to set current regulator pin:%d", pin);
-		regVCAMAF = regulator_get_regVCAMAF_ALICE();
-		if (IS_ERR(regVCAMAF)) {
-			PK_PR_ERR("get main af regulator fail");
-			regVCAMAF = NULL;
-		}
 		if (pin == IMGSENSOR_HW_PIN_AFVDD)
 		{
+			PK_PR_ERR("to set current regulator pin:%d", pin);
+			regVCAMAF = regulator_get_regVCAMAF_ALICE();
+			if (IS_ERR(regVCAMAF)) {
+				PK_PR_ERR("get main af regulator fail");
+				regVCAMAF = NULL;
+			}
 			if (pin_state == IMGSENSOR_HW_PIN_STATE_LEVEL_0)
+				
 			{
+				PK_PR_ERR("Yogi, pin=:%d,pin_state=%d,regulator_set_voltage=%d\n", pin,pin_state,regulator_voltage[IMGSENSOR_HW_PIN_STATE_LEVEL_0]);
 				if (regulator_set_voltage(regVCAMAF,regulator_voltage[IMGSENSOR_HW_PIN_STATE_LEVEL_0],regulator_voltage[IMGSENSOR_HW_PIN_STATE_LEVEL_0]))
 				{
 					PK_PR_ERR("[regulator]fail to regulator_set_voltage, powerId:%d\n", regulator_voltage[IMGSENSOR_HW_PIN_STATE_LEVEL_0]);
 				}
 				if (regulator_disable(regVCAMAF))
 				{
-					PK_PR_ERR("[regulator]fail to regulator_disable gVCamIO\n");
+					PK_PR_ERR("[regulator]fail to regulator_disable regVCAMAF\n");
 					return IMGSENSOR_RETURN_ERROR;
 				}
 			}
 			else
 			{
+			    PK_PR_ERR("Yogi, pin=:%d,pin_state=%d,regulator_set_voltage=%d\n", pin,pin_state,regulator_voltage[pin_state - IMGSENSOR_HW_PIN_STATE_LEVEL_0]);
 				if (regulator_set_voltage(regVCAMAF, regulator_voltage[pin_state - IMGSENSOR_HW_PIN_STATE_LEVEL_0],regulator_voltage[pin_state - IMGSENSOR_HW_PIN_STATE_LEVEL_0]))
 				{
 					PK_PR_ERR("[regulator]fail to regulator_set_voltage, powerId:%d\n",regulator_voltage[pin_state - IMGSENSOR_HW_PIN_STATE_LEVEL_0]);
 				}
 				if (regulator_enable(regVCAMAF))
 				{
-					PK_PR_ERR("[regulator]fail to regulator_enable\n");
+					PK_PR_ERR("[regulator]fail to regulator_enable regVCAMAF \n");
 					return IMGSENSOR_RETURN_ERROR;
 				}
 			}

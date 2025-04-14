@@ -111,7 +111,7 @@
 	mt6360pd,intr-gpio-num = <9>; /* direct defined GPIO num */
 	mt6360pd,intr-gpio = <&pio 9 0x0>;
 	mt-tcpc,role-def = <1>;  /* 0: Unknown, 1: SNK only, 2: SRC only, 3: DRP, 4: Try.SRC, 5: Try.SNK */
-	mt-tcpc,rp_level = <0>; /* 0: Default, 1: 1.5, 2: 3.0 */
+	mt-tcpc,rp-level = <0>; /* 0: Default, 1: 1.5, 2: 3.0 */
 	mt-tcpc,vconn-supply  = <1>; /* 0: Never, 1: Always, 2: EMarkOnly, 3: StartOnly */
 	pd-data {
 		pd,source-pdo-size = <1>;
@@ -185,6 +185,7 @@
 	cdp_temp_warm_fastchg_current = <1600>;
 
 	hot_bat_decidegc = <53>;
+	for_mtk_battery_temp_support;
 };
 
 &charger {

@@ -348,6 +348,7 @@
 		led-bits = <12>;
 		trans-bits = <12>;
 		default-state = "on";
+		apollo-state = "disable";
 	};
 };
 

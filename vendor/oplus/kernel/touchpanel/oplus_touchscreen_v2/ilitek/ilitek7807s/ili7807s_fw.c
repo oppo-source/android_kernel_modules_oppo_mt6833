@@ -1017,7 +1017,6 @@ int ili_fw_upgrade(int op)
 
 			ilits->xch_num = 0;
 			ilits->ych_num = 0;
-			return ret;
 		}
 	} else {
 		ILI_ERR("eng_flow do reset!\n");

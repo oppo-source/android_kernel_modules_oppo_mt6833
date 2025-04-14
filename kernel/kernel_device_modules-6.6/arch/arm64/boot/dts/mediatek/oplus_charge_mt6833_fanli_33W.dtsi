@@ -186,6 +186,7 @@
 	cdp_temp_warm_fastchg_current = <1600>;
 
 	hot_bat_decidegc = <53>;
+	for_mtk_battery_temp_support;
 };
 
 &charger {

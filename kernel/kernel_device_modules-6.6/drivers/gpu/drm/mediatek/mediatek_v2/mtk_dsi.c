@@ -15677,7 +15677,8 @@ static int mtk_dsi_probe(struct platform_device *pdev)
 			}
 			if (dsi->panel) {
 				dsi->ext = find_panel_ext(dsi->panel);
-				dsi->dummy_cmd_en = dsi->ext->params->cmd_null_pkt_en;
+				if(dsi->ext && dsi->ext->params)
+					dsi->dummy_cmd_en = dsi->ext->params->cmd_null_pkt_en;
 			}
 			if (dsi->slave_dsi) {
 				dsi->slave_dsi->ext = dsi->ext;
