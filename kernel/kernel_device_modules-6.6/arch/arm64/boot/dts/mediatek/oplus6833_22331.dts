@@ -1027,12 +1027,4 @@ helper-value = <0>, /*MTK_DRM_OPT_STAGE*/
 	};
 };
 
-&odm {
-/* Add for low_mem_optimize */
-	low_mem_optimize {
-		compatible = "oplus,extra_free_kbytes";
-		extra_free_kbytes;
-	};
-};
-
 /*End of this file, DO NOT ADD ANYTHING HERE*/

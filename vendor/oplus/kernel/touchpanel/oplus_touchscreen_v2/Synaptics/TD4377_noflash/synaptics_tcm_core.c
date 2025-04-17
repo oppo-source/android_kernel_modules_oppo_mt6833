@@ -3418,8 +3418,9 @@ void syna_fw_version_update(void *chip_data)
 	struct syna_tcm_hcd *tcm_hcd = (struct syna_tcm_hcd *)chip_data;
 	struct touchpanel_data *ts = spi_get_drvdata(tcm_hcd->s_client);
 	char *fw_ver = NULL;
-
+        tcm_hcd->app_info.customer_config_id[9] = '\0';
 	if (strlen(tcm_hcd->app_info.customer_config_id) == 0) {
+		TPD_INFO("customer_config_id is not avaliable\n");
 		return;
 	}
 

@@ -89,7 +89,7 @@
                 touchpanel,tp-index = <0>;
                 platform_support_project = <22083 22291 22292>;
                 platform_support_project_dir = <22083 22083 22083 22083>;
-                platform_support_project_commandline = "oplus22291_ili9883c_hlt_hd_dsi_vdo_lcm_drv","oplus22291_ili9883c_boe_vdo_lcm_drv","oplus22291_td4160_truly_hd_dsi_vdo_lcm_drv";
+                platform_support_project_commandline = "oplus22291_ili9883c_hlt_hd_dsi_vdo_lcm_drv","oplus22291_ili9883c_boe_hd_dsi_vdo_lcm_drv","oplus22291_td4160_truly_hd_dsi_vdo_lcm_drv";
                 /*panel properities*/
                 touchpanel,max-num-support = <10>;
                 touchpanel,tx-rx-num = <18 32>;
@@ -1247,14 +1247,6 @@ oplus_fp: fingerprint@0 {
 				balance_anon_file_reclaim_always_true;
 			};
 		};
-	};
-};
-
-&odm {
-/* Add for low_mem_optimize */
-	low_mem_optimize {
-		compatible = "oplus,extra_free_kbytes";
-		extra_free_kbytes;
 	};
 };
 

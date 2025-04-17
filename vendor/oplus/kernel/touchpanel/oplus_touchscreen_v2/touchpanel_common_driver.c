@@ -4683,9 +4683,14 @@ static void tp_resume(struct device *dev)
 	struct touchpanel_data *ts = dev_get_drvdata(dev);
 	struct device_node *chip_np = NULL;
 	struct device_node *src_chip_np = NULL;
+        static int count = 0;
 	TP_INFO(ts->tp_index, "%s start.\n", __func__);
 
 	if (!ts->is_suspended) {
+		if (count == 0) {
+			operate_mode_switch(ts);
+			count++;
+		}
 		TP_INFO(ts->tp_index, "%s: do not resume twice.\n", __func__);
 		goto NO_NEED_RESUME;
 	}
